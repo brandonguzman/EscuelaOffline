@@ -103,6 +103,10 @@ class BaseJuego(TemplateView, Logueado):
 			return 'Memory/memory-ingles.html'
 		elif( nombre_juego == 'Respuesta Múltiple Matemáticas' ):
 			return 'SelectMultiple/multi_select.html'
+		elif( nombre_juego == 'Ahorcado' ):
+			return 'Ahorcado/ahorcado.html'
+		elif( nombre_juego == 'Carrito Inglés' ):
+			return 'carrito/carro.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(BaseJuego, self).get_context_data(**kwargs)

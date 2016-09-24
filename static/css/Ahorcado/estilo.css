@@ -1,0 +1,33 @@
+#midiv{
+  width: 650px;	
+  background-color: #97F4F7;
+  display: inline-flex;
+  margin: 0 auto;
+}
+
+#midiv p{
+	padding: 10px;
+}
+
+#boton{
+	margin-left: 330px;
+}
+
+#nivel{
+  margin-top: 10px;
+}
+
+#canvas{
+  margin: 0 auto;
+	height: 0px;
+	display: none;
+
+}
+
+#error{
+  display: none;
+}
+
+#exito{
+  display: none;
+}
