@@ -1,0 +1,101 @@
+{%extends 'juego.html'%}
+
+{%block juego%}
+<script src="/static/js/GLOBAL/jquery-2.2.3.min.js"></script>
+<script src="/static/js/GLOBAL/util.js"></script>
+<style type="text/css">
+	#bm{
+		padding: 3px;
+		display: inline-block;
+	}
+	.bcfila{
+		box-sizing: border-box;
+		display: flex;
+		height: 25px;
+		margin: 0 auto;
+	}
+	.bccaja{
+		color: #225;
+		background: #aaa;
+		font-size: 20px;
+		font-weight: bold;
+		height: 25px;
+		width: 25px;
+		border: 1px solid #888;
+		box-sizing: border-box;
+		display: inline-block;
+		vertical-align: top;
+		padding-top: 0px;
+		text-align: center;
+	}
+	.bcmina{
+		width: 100%;
+	    height: 100%;
+	    margin-top: 0px;
+	}
+	#bm_data{
+		width: 100%;
+		min-width: 408px;
+		background: #363655;
+		color: white;
+		border: 1px solid white;
+	}
+	.j_datos{
+		display: table;
+		padding: 2px 4px;
+		box-sizing: border-box;
+	}
+	.j_dato{
+		display: table-cell;
+	}
+	#buscaminas{
+	}
+	#bm_nuevo{
+		text-align: right;
+	}
+	#bm_nuevo button{
+		border: 3px;
+		border-radius: 3px;
+		padding: 2px;
+		width: 50px;
+	}
+	#bm_tiempo{
+		text-align: left;
+	}
+	#bm_nivel{
+		text-align: center;
+	}
+	select{
+		border: 3px;
+		padding: 2px;
+		border-radius: 3px;
+	}
+	#bm0{
+		display: inline-block;
+		margin: 0 auto;
+		border: 1px solid white;
+		min-width: 408px;
+	}
+</style>
+<div id="buscaminas" class="celda">
+	<div style="display: inline-block;">
+		<div id="bm_data" class="j_datos">
+			<div id="bm_tiempo" class="j_dato">00:00:00</div>
+			<div id="bm_nivel" class="j_dato"></div>
+			<div id="bm_nuevo" class="j_dato"><button onclick="crearTablero()">Nuevo</button></div>
+		</div>
+		<div id="bm0" style="display: none;">
+		<div id="bm"></div>
+		</div>
+	</div>
+</div>
+<script src="/static/js/Buscaminas/buscaminas.js"></script>
+<script>
+	var cuerpo = document.getElementsByTagName('body')[0];
+	cuerpo.onkeydown = pressDown;
+	cuerpo.onkeyup = pressUp;
+	var div_nivel = document.getElementById("nivel");
+	var div_nivel_j = document.getElementById("bm_nivel");
+	div_nivel_j.appendChild(div_nivel);
+</script>
+{%endblock%}

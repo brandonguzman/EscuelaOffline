@@ -77,9 +77,33 @@ function newMatrix(m,n){
 function newFillMatrix(m,n){
   return fillMatrix( newMatrix(m,n) );
 }
-
+//llena una matriz con ceros
+function fillMatrixZero(m){
+  for(var i=0; i<m.length; i++){
+    for(var j=0; j<m[i].length; j++)
+      m[i][j] = 0;
+  }
+  return m;
+}
+//ingresa el número (val), una cantidad de veces (n) en una matriz (m) aleatoriamente
+function fillRandValMatrix(m,val,n){
+  for(var a=0; a<n; a++){
+    //posible bucle infinito, cuando n se acerca a Matriz(n*m)
+    while(true){
+      x = aleat(0,m.length-1);
+      y = aleat(0,m[0].length-1);
+      if( m[x][y] == val )
+        continue;
+      else{
+        m[x][y] = val;
+        break;
+      }
+    }
+  }
+}
 //reloj donde se guarda el tiempo transcurrido
 function Reloj(){
+  this.strTime = "";
   this.seg = 0; this.min = 0; this.hour = 0; this.dec = 0;
   this.getVal = function(){
     this.dec++;
@@ -92,10 +116,22 @@ function Reloj(){
         }
       }
     }
-    return this.min+':'+this.seg+':'+this.dec;
+    if(this.min<10)
+      this.strTime = "0"+this.min;
+    else
+      this.strTime = this.min;
+    if(this.seg<10)
+      this.strTime += ":0"+this.seg;
+    else
+      this.strTime += ":"+this.seg;
+    if(this.dec<10)
+      this.strTime += ":0"+this.dec;
+    else
+      this.strTime += ":"+this.dec;
+    return this.strTime;
   };
   this.getVal2 = function(){
-    return this.min+':'+this.seg+':'+this.dec;
+    return this.strTime;
   }
   this.restablecer = function(){ //restablece todo a 0, pero no para el crono
     this.seg = 0; this.min = 0; this.hour = 0; this.dec = 0;
@@ -152,18 +188,40 @@ function setDisplay2(){
   display.textContent = reloj.getVal2();
 }
 
-
 //función para enviar el punteo a la url que lo guarda en la db
 function guardarPunteo(retardo, punteo, selectNivel, selectTipo){
   window.setTimeout(function(){
-    tipo  = $("#"+selectTipo).val();
-    if(!tipo)
-      tipo = "";
-    nivel = $("#"+selectNivel).val();
-    $form = $("#punteojuego");
-    $form.append("<input name='punteo' value='"+punteo+"'/>");
-    $form.append("<input name='idnivel' value='"+nivel+"'/>");
-    $form.append("<input name='idtipo' value='"+tipo+"'/>");
-    $form.submit();
+    var tipo  = null;
+    if(selectTipo)
+      tipo = document.getElementById(selectTipo).value;
+    var nivel = document.getElementById(selectNivel).value;
+    var form = document.getElementById("punteojuego");
+    var input = document.createElement("input");
+    input.setAttribute("name","punteo");
+    input.setAttribute("value",punteo);
+    form.appendChild( input );
+    var input = document.createElement("input");
+    input.setAttribute("name","idnivel");
+    input.setAttribute("value",nivel);
+    form.appendChild( input );
+    var input = document.createElement("input");
+    input.setAttribute("name","idtipo");
+    input.setAttribute("value",tipo);
+    form.appendChild( input );
+    form.submit();
   },retardo);
+}
+
+function timeOut(milis, funcion){
+  window.setTimeout(funcion,milis);
+}
+
+function Punto(x,y){
+  this.x = x; this.y = y;
+}
+//mueve el select de "niveles"... hacia un div con id (idDiv)
+function setNivel(idDiv){
+  var div_nivel = document.getElementById("nivel");
+  var div_nivel_j = document.getElementById(idDiv);
+  div_nivel_j.appendChild(div_nivel);
 }

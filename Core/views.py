@@ -107,6 +107,10 @@ class BaseJuego(TemplateView, Logueado):
 			return 'Ahorcado/ahorcado.html'
 		elif( nombre_juego == 'Carrito Inglés' ):
 			return 'carrito/carro.html'
+		elif( nombre_juego == 'Buscaminas' ):
+			return 'Buscaminas/buscaminas.html'
+		elif( nombre_juego == 'Inteligencia Artificial' ):
+			return 'HAM/ham.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(BaseJuego, self).get_context_data(**kwargs)
@@ -128,12 +132,17 @@ def guardarPunteo(request):
 		idtipo  = request.POST['idtipo']
 		urlback = request.POST['urlback']
 		punteo  = request.POST['punteo']
+		punteo  = str(punteo)
+		if( len(punteo) == 1):
+			punteo = "0"+punteo
+			print(punteo)
 		#obteniendo el nivel, tipo, punteo (objects)
 		obj_nivel = Nivel.objects.filter(codigo=idnivel)
+		print(idtipo);
 		obj_nivel_j = NivelJuego.objects.get(juego=idjuego, nivel=obj_nivel).nivel
 		obj_tipo_j = None
 		punteo_j = PunteoJuego.objects.get(juego=idjuego).punteo
-		if (idtipo):
+		if (idtipo != "null"):
 			obj_tipo  = Tipo.objects.filter(codigo=idtipo)
 			obj_tipo_j  = TipoJuego.objects.get(juego=idjuego, tipo=obj_tipo).tipo
 		print(obj_nivel_j)
@@ -159,6 +168,9 @@ def guardarPunteo(request):
 		if puntuacion: #si ya existe una puntuación
 			pmax = puntuacion.punteoMax
 			pmin = puntuacion.punteoMin
+			print(pmin)
+			print(pmax)
+			print("punteo: "+punteo)
 			if (punteo > pmax):
 				puntuacion.punteoMax = punteo
 			elif (punteo < pmin):
@@ -170,7 +182,7 @@ def guardarPunteo(request):
 			nivel_j = NivelJuego.objects.get(juego=idjuego, nivel=nivel).nivel
 			tipo_j = None
 			print(idtipo)
-			if (idtipo):
+			if (idtipo != "null"):
 				tipo  = Tipo.objects.filter(codigo=idtipo)
 				tipo_j  = TipoJuego.objects.get(juego=idjuego, tipo=tipo).tipo
 

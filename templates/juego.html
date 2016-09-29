@@ -3,10 +3,11 @@
 {%block body%}
 <style type="text/css">
 #juego{
-  padding-top: 70px;
+  padding-top: 0px;
 }
 h2{
-  padding: 10px;
+  padding-top: 20px;
+  height: 60px;
 }
 footer{
   display: none;
@@ -70,8 +71,9 @@ tbody tr td:last-child(){
 
 </style>
 
+
 <section id="juego">
-  <h2>{{juego.nombre}}</h2>
+  <h2><div id="nombreJuego">{{juego.nombre}}</div></h2>
   <select id="nivel">
     {%for n in niveles%}
     <option value="{{n.nivel.codigo}}">{{n.nivel}}</option>
@@ -126,6 +128,26 @@ tbody tr td:last-child(){
       </table>
     </div>
   </div>
+<script type="text/javascript">
+  var bs = document.getElementById("barraSuperior");
+  var log = document.getElementById("logo");
+  var np = document.getElementById("navPrincipal");
+  var nj = document.getElementById("nombreJuego");
+  bs.onmouseover = bsMouseOver;
+  bs.onmouseout  = bsMouseOut;
+  log.style.display = "none";
+  np.style.display = "none";
+  function bsMouseOver(){
+    log.style.display = "block";
+    np.style.display = "block";
+    nj.style.display = "none";
+  }
+  function bsMouseOut(){
+    log.style.display = "none";
+    np.style.display = "none";
+    nj.style.display = "block";
+  }
+</script>
   
 </section>
 
