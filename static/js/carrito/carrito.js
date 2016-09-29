@@ -243,13 +243,16 @@ carro.prototype.dibujar = function() {
     choque(carroX,carroY);
 
     if (genera.cont == genera.oraciones1.length) {
-            guardarPunteo(2000,punteo.punteo,"nivel",null);
+            alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
+            guardarPunteo(1000,punteo.punteo,"nivel",null);
         }
     if (genera.cont == genera.oraciones2.length) {
-            guardarPunteo(2000,punteo.punteo,"nivel",null);
+            alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
+            guardarPunteo(1000,punteo.punteo,"nivel",null);
         }
      if (genera.cont == genera.oraciones3.length) {
-            guardarPunteo(2000,punteo.punteo,"nivel",null);
+            alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
+            guardarPunteo(1000,punteo.punteo,"nivel",null);
         }    
 
 

@@ -8,16 +8,16 @@ function oracionesIngles() {
 
 	this.verbos1 = ["i'm","you're","she's","he's","it's","they're","we're"];
 	this.oraciones1 = new Array(10);
-	this.oraciones1[0] = "hello i'm brandon.";
-	this.oraciones1[1] = "it's my friend.";
+	this.oraciones1[0] = "hello i'm Mario.";
+	this.oraciones1[1] = "mario it's crazy.";
 	this.oraciones1[2] = "she's my girlfriend.";
-	this.oraciones1[3] = "we're cousins.";
+	this.oraciones1[3] = "Mario and i we're counsis.";
 	this.oraciones1[4] = "she's a young woman.";
-	this.oraciones1[5] = "he's a businessman";
-	this.oraciones1[6] = "he's a pilot.";
+	this.oraciones1[5] = "he's a businessman.";
+	this.oraciones1[6] = "Mario he's a pilot.";
 	this.oraciones1[7] = "it's a good movie. ";
 	this.oraciones1[8] = "it's cold.";
-	this.oraciones1[9] = "i'm living in Guatemala.";
+	this.oraciones1[9] = "he's my boyfriend";
 
 	this.verbos2 = ["have","has","had"];
 	this.oraciones2 = new Array(10);

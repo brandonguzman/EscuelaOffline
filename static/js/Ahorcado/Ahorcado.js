@@ -205,6 +205,7 @@ draw = function(){
         gene = false;          
     } 
     if (miVar == genera.elegida) {
+    	alert("correcta Felicidades");
     	punteo.NoIntentos = 7;
 	 	genera.cont += 1;
 	 	gene = true;
@@ -250,6 +251,7 @@ draw = function(){
         	ahorca.brazos();
         	ahorca.ojos();
         	ahorca.piernas();
+
         	alert("Has perdido la correcta es:"+" "+ genera.elegida);
         	punteo.NoIntentos = 7;
         	punteo.punteo = 0;
@@ -263,12 +265,15 @@ draw = function(){
 
 
       if (genera.cont == genera.palabras.length) {
+      		 alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
             guardarPunteo(1000,punteo.punteo,"nivel",null);
         }
     if (genera.cont == genera.palabras2.length) {
+    		 alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
             guardarPunteo(1000,punteo.punteo,"nivel",null);
         }
      if (genera.cont == genera.palabras3.length) {
+     		 alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
             guardarPunteo(1000,punteo.punteo,"nivel",null);
         }    
  }
