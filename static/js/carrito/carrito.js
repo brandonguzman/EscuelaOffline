@@ -23,8 +23,14 @@ eligio = function () {
         nivel = document.getElementById('nivel').value; 
         clickDibuja();
         jugar = true;   
+        timeOut(200,selectCanvas);
+        //var niv = document.getElementById("nivel");
+        //niv.focus();
 }
-
+function selectCanvas(){
+    var can = document.getElementById("canvasCarrito");
+    can.focus();
+}
  
  
 //constructor del objeto carro

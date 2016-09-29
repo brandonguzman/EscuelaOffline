@@ -15,7 +15,10 @@
 	{%endif%}
 
 	  {%for j in juegos%}
-	    <li class="categoria"><a href="/juegos/{{j.id}}/"><img src="/static/img/{{j.icono}}" /></a><p>{{j}}</p></li>
+	    <li class="categoria">
+	    	<a href="/juegos/{{j.id}}/"><img src="/static/img/{{j.icono}}" /></a>
+	    	<p class="nJuego">{{j}}</p>
+	    </li>
 	  {%endfor%}
 
 	{%if page_obj.has_next%}
