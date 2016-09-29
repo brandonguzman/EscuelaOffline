@@ -191,15 +191,24 @@ function setDisplay2(){
 //función para enviar el punteo a la url que lo guarda en la db
 function guardarPunteo(retardo, punteo, selectNivel, selectTipo){
   window.setTimeout(function(){
-    tipo  = $("#"+selectTipo).val();
-    if(!tipo)
-      tipo = "";
-    nivel = $("#"+selectNivel).val();
-    $form = $("#punteojuego");
-    $form.append("<input name='punteo' value='"+punteo+"'/>");
-    $form.append("<input name='idnivel' value='"+nivel+"'/>");
-    $form.append("<input name='idtipo' value='"+tipo+"'/>");
-    $form.submit();
+    var tipo  = null;
+    if(selectTipo)
+      tipo = document.getElementById(selectTipo).value;
+    var nivel = document.getElementById(selectNivel).value;
+    var form = document.getElementById("punteojuego");
+    var input = document.createElement("input");
+    input.setAttribute("name","punteo");
+    input.setAttribute("value",punteo);
+    form.appendChild( input );
+    var input = document.createElement("input");
+    input.setAttribute("name","idnivel");
+    input.setAttribute("value",nivel);
+    form.appendChild( input );
+    var input = document.createElement("input");
+    input.setAttribute("name","idtipo");
+    input.setAttribute("value",tipo);
+    form.appendChild( input );
+    form.submit();
   },retardo);
 }
 
@@ -209,4 +218,10 @@ function timeOut(milis, funcion){
 
 function Punto(x,y){
   this.x = x; this.y = y;
+}
+//mueve el select de "niveles"... hacia un div con id (idDiv)
+function setNivel(idDiv){
+  var div_nivel = document.getElementById("nivel");
+  var div_nivel_j = document.getElementById(idDiv);
+  div_nivel_j.appendChild(div_nivel);
 }
