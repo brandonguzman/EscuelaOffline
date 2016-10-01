@@ -70,6 +70,18 @@ var casillasOcup = new Array(6);
 var casillaActual = -1;
 //niveles
 var niv1 = [13,11,10,0,2,4];
+var NivelesJ = newMatrix(10,6);
+NivelesJ[0] = [13,11,10,0,1,2];
+NivelesJ[1] = [18,21,20,0,2,3];
+NivelesJ[2] = [19,4,0,5,16,24];
+NivelesJ[3] = [19,14,4,0,10,20];
+NivelesJ[4] = [23,12,8,0,20,21];
+NivelesJ[5] = [20,23,24,9,4,1];
+NivelesJ[6] = [20,23,14,9,8,0];
+NivelesJ[7] = [1,10,20,21,22,9];
+NivelesJ[8] = [21,10,0,1,4,19];
+NivelesJ[9] = [4,0,10,20,22,24];
+
 var nivelJ = null;
 
 function setNivelIA(){ //las casillas donde iniciarán los humanos.
@@ -102,7 +114,9 @@ function setNivelIA(){ //las casillas donde iniciarán los humanos.
 };
 
 function selectNivel(){
-	nivelJ = niv1;
+	var nn = document.getElementById("nivel").value;
+	nn -= 10;
+	nivelJ = NivelesJ[nn];
 };
 
 function setNuevaPos(id,casilla){
@@ -359,9 +373,15 @@ var caminar = 0;
 function caminarDown(){
 	caminar = window.setInterval(function(){
 		if( ganado ){
-			console.log("moverAba");
+			//console.log("moverAba");
+			//alert("ok");
 			for(var i=0; i<6; i++){
-				h[i].moverAba();
+				h[i].actual = front;
+				h[i].y += 5;
+				h[i].sprite++;
+				if( h[i].sprite == 4 )
+					h[i].sprite = 0;
+				console.log(h[i].id+"-"+h[i].x+"-"+h[i].y);
 			}
 		}
 	},100);
