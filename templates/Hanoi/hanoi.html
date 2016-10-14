@@ -1,0 +1,43 @@
+{%extends 'juego.html'%}
+
+{%block juego%}
+<script src="/static/js/GLOBAL/processing.min.js"></script>
+<script src="/static/js/GLOBAL/util.js"></script>
+<style>
+	#ia_data{
+		width: 100%;
+		min-width: 408px;
+		background: #363655;
+		color: white;
+		border: 1px solid white;
+	}
+	#ia_tiempo{
+		width: 100px;
+	}
+	.j_datos{
+		display: table;
+		padding: 2px 4px;
+		box-sizing: border-box;
+	}
+	.j_dato{
+		display: table-cell;
+	}
+	#ia_nuevo{
+		text-align: right;
+	}
+</style>
+<div id="ia">
+	<div style="display: block; margin: 0 auto; width: 710px;">
+		<div id="ia_data" class="j_datos">
+			<div id="ia_nivel" class="j_dato"></div>
+			<div id="ia_nuevo" class="j_dato"><button onclick="iniciar()">Nuevo</button></div>
+		</div>
+		<div>
+			<canvas id="iaCanvas" data-processing-sources="/static/js/Hanoi/hanoi.js">
+		</div>
+	</div>
+</div>
+<script>
+	setNivel("ia_nivel"); //añade los niveles a la barra superior
+</script>
+{%endblock%}

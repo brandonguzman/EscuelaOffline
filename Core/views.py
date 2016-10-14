@@ -78,7 +78,7 @@ class CategoriaDeJuegos(ListView, Logueado):
 	template_name = 'juegos_categoria.html'
 	slug_field = 'categoriaJuego'
 	context_object_name = 'juegos'
-	paginate_by = 4
+	paginate_by = 3
 
 	def get_queryset(self):
 		return Juego.objects.filter(categoriaJuego=self.kwargs['slug'])
@@ -111,6 +111,8 @@ class BaseJuego(TemplateView, Logueado):
 			return 'Buscaminas/buscaminas.html'
 		elif( nombre_juego == 'Inteligencia Artificial' ):
 			return 'HAM/ham.html'
+		elif( nombre_juego == 'Torres de Hanoi' ):
+			return 'Hanoi/hanoi.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(BaseJuego, self).get_context_data(**kwargs)
