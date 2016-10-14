@@ -33,7 +33,7 @@ class NewUserBase(FormView):
 	def form_valid(self, form):
 		form.save()
 		if self.auto_login and not self.request.user.is_authenticated():
-			username = form.cleaned_data['username']
+			username = form.cleaned_data['alias']
 			password = form.cleaned_data['password1']
 			user = authenticate(username=username, password=password)
 			if user is not None and user.is_active:

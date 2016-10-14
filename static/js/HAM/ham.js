@@ -363,7 +363,7 @@ draw = function(){
 				seleccion = true;
 				ganado = false;
 				jugando = false;
-				guardarPunteo(500,6,"nivel");
+				guardarPunteo(500,document.getElementById("ia_tiempo").innerHTML,"nivel");
 			}
 		}
 	}
@@ -387,7 +387,9 @@ function caminarDown(){
 	},100);
 };
 
-mouseClic = function(){
+crono = new Cronometro("ia_tiempo");
+
+mouseClic = function(){ //funcion que crea un nuevo juego
 	setNivelIA();
 	jugando = true;
 	seleccion = false;
@@ -395,6 +397,7 @@ mouseClic = function(){
 	ganado = false;
 	window.setTimeout(function(){
 		document.getElementById("iaCanvas").focus();
+		crono.reiniciar();
 	},500);
 };
 
@@ -462,6 +465,7 @@ function hasPerdido(){
 		seleccion = true;
 		jugando = false;
 		keybActive = false;
+		crono.detener();
 		alert("Has Perdido");
 	}
 };
@@ -472,6 +476,7 @@ function hasGanado(){
 		jugando = false;
 		keybActive = false;
 		ganado = true;
+		crono.detener();
 		alert("Has Ganado");
 		caminarDown();
 	},1000);

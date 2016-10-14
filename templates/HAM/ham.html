@@ -11,6 +11,9 @@
 		color: white;
 		border: 1px solid white;
 	}
+	#ia_tiempo{
+		width: 100px;
+	}
 	.j_datos{
 		display: table;
 		padding: 2px 4px;
@@ -23,7 +26,7 @@
 <div id="ia">
 	<div style="display: block; margin: 0 auto; width: 600px;">
 		<div id="ia_data" class="j_datos">
-			<div id="ia_tiempo" class="j_dato">00:00:00</div>
+			<div class="j_dato"><div id="ia_tiempo" >00:00:00</div></div>
 			<div id="ia_nivel" class="j_dato"></div>
 			<div id="ia_nuevo" class="j_dato"><button onclick="mouseClic()">Nuevo</button></div>
 		</div>
@@ -33,6 +36,6 @@
 	</div>
 </div>
 <script>
-	setNivel("ia_nivel");
+	setNivel("ia_nivel"); //añade los niveles a la barra superior
 </script>
 {%endblock%}

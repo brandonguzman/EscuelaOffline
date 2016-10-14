@@ -6,13 +6,13 @@
 			height: 100%;
 		}
 		body{
-			background-image: url('/static/img/ecuaciones.jpg');
+			background-image: url('/static/img/fondo-animado2.gif');
 			height: 100%;
+			background-size: cover;
 		}
 		#sectionPrincipal{
 			width: 100%;
-			padding: 100px 50px;
-			padding-bottom: 80px;
+			padding: 10px 50px;
 			height: 100%;
 			box-sizing: border-box;
 		}
@@ -33,14 +33,18 @@
 			background: rgba(100,100,200,0.2);
 		}
 		form input, select{
-			background: rgba(255,255,255,0.3);
-			color: #115;
+			background: rgba(255,255,255,0.2);
+			color: white;
 			padding: 5px;
 			border-radius: 5px;
 			margin: 0 auto;
-			margin-bottom: 20px;
+			margin-bottom: 15px;
 			width: 80%;
-			font-size: 20px;
+			font-size: 14px;
+			box-sizing: border-box;
+		}
+		select{
+
 		}
 		form label{
 			color: white;
@@ -51,6 +55,8 @@
 			color: white;
 			font-weight: bold;
 			margin: 0 auto;
+			padding-bottom: 15px;
+			height: 30px;
 			text-align: center;
 		}
 		.errorlist{
@@ -69,8 +75,7 @@
 {%block body%}
 
 <section id="sectionPrincipal">
-	<h1>Aprende Jugando</h1>
-	<h2>Inicio de sesión</h2>
+	<h2><div id="nombreJuego">Registrarse!</div></h2>
 	<form method="post">{%csrf_token%}
 		{{form.as_p}}
 		<input type="submit" name="Registrar" value="Registrar">

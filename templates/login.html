@@ -6,12 +6,13 @@
 			height: 100%;
 		}
 		body{
-			background-image: url('/static/img/ecuaciones.jpg');
+			background-image: url('/static/img/fondo-animado2.gif');
 			height: 100%;
+			background-size: cover;
 		}
 		#sectionPrincipal{
 			width: 100%;
-			padding: 100px 50px;
+			padding: 10px 50px;
 			height: 100%;
 			box-sizing: border-box;
 		}
@@ -33,6 +34,7 @@
 		}
 		form input{
 			background: rgba(255,255,255,0.3);
+			box-sizing: border-box;
 			color: #115;
 			padding: 5px;
 			border-radius: 5px;
@@ -49,6 +51,8 @@
 			color: white;
 			font-weight: bold;
 			margin: 0 auto;
+			padding-bottom: 15px;
+			height: 30px;
 			text-align: center;
 		}
 		.errorlist{
@@ -70,8 +74,7 @@
 {%block body%}
 
 <section id="sectionPrincipal">
-	<h1>Aprende Jugando</h1>
-	<h2>Inicio de sesión</h2>
+	<h2><div id="nombreJuego">Inicio de sesión</div></h2>
 	<form method="post">{%csrf_token%}
 		{{form.as_p}}
 		<input type="submit" name="Ingresar" value="Ingresar">

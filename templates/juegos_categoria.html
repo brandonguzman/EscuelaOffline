@@ -4,7 +4,7 @@
 
 {%block body%}
 <section id="sectionPrincipal">
-	<h1>Aprende Jugando</h1>
+	<h1><div id="nombreJuego">Aprende Jugando</div></h1>
 	<h2>Juegos de {{categoria}}</h2>
 
 <ul id="ulCateg">
@@ -17,7 +17,7 @@
 	  {%for j in juegos%}
 	    <li class="categoria">
 	    	<a href="/juegos/{{j.id}}/"><img src="/static/img/{{j.icono}}" /></a>
-	    	<p class="nJuego">{{j}}</p>
+	    	<p class="nJuego" name="nJuego">{{j}}</p>
 	    </li>
 	  {%endfor%}
 
@@ -27,6 +27,20 @@
 	<li id="nextpage" class="categoria"><a class="deshab" href="#">»</a></li>
 	{%endif%}
 </ul>
+
+<script>
+	var nombres_juego = document.getElementsByName('nJuego');
+	for(var i=0; i<nombres_juego.length; i++){
+		var texto = nombres_juego[i].innerText.split(' ');
+		var t = "";
+		for(var j=0; j<texto.length; j++){
+			t = t + texto[j] + "<br />";
+		}
+		nombres_juego[i].innerHTML = t;
+		//console.log(nombres_juego[i].innerText.replace(' ','<br/>'));
+	}
+
+</script>
 
 </section>
 

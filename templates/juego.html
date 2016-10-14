@@ -3,10 +3,9 @@
 {%block body%}
 <style type="text/css">
 #juego{
-  padding-top: 0px;
+  padding-top: 10px;
 }
 h2{
-  padding-top: 20px;
   height: 60px;
 }
 footer{
@@ -33,7 +32,6 @@ footer{
   margin-top: 5px;
 }
 #puntuacion p{
-  border-bottom: 1px solid white;
   margin-top: 5px;
 }
 #puntuacion{
@@ -42,9 +40,11 @@ footer{
   width: 350px;
   box-sizing: border-box;
   vertical-align: top;
+  text-align: center;
 }
 table{
   border-collapse: collapse;
+  display: inline;
 }
 th,td{
   border: 1px solid #888;
@@ -111,8 +111,8 @@ tbody tr td:last-child(){
           {%if juego_tipo%}
           <td class="campo">Tipo</td>
           {%endif%}
-          <td class="campo">{{des_punteo}} Min</td>
-          <td class="campo">{{des_punteo}} Max</td>
+          <td class="campo">{{des_punteo}}<br/>Min</td>
+          <td class="campo">{{des_punteo}}<br/>Max</td>
         </tr>
         </thead>
         {%for p in punteos%}
@@ -128,26 +128,6 @@ tbody tr td:last-child(){
       </table>
     </div>
   </div>
-<script type="text/javascript">
-  var bs = document.getElementById("barraSuperior");
-  var log = document.getElementById("logo");
-  var np = document.getElementById("navPrincipal");
-  var nj = document.getElementById("nombreJuego");
-  bs.onmouseover = bsMouseOver;
-  bs.onmouseout  = bsMouseOut;
-  log.style.display = "none";
-  np.style.display = "none";
-  function bsMouseOver(){
-    log.style.display = "block";
-    np.style.display = "block";
-    nj.style.display = "none";
-  }
-  function bsMouseOut(){
-    log.style.display = "none";
-    np.style.display = "none";
-    nj.style.display = "block";
-  }
-</script>
   
 </section>
 

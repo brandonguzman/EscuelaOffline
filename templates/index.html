@@ -6,20 +6,24 @@
 			height: 100%;
 		}
 		body{
-			background-image: url('/static/img/ecuaciones.jpg');
+			background-image: url('/static/img/fondo-animado1.gif');
+			background-size: cover;
+			background-repeat: no-repeat;
 			height: 100%;
 		}
 		#sectionPrincipal{
 			width: 100%;
-			padding: 100px 50px;
+			padding: 2px 50px;
 			height: 100%;
 			box-sizing: border-box;
 		}
 		#sectionPrincipal h1{
 			margin: 0 auto;
 			text-align: center;
-			font-size: 48px;
+			font-size: 38px;
+			height: 60px;
 			color: white;
+			padding-bottom: 10px;
 		}
 		#sectionPrincipal form{
 			width: 300px;
@@ -115,7 +119,6 @@
 			background-color: rgba(255,255,255,.8);
 		}
 		.nJuego{
-			width: 300px;
 			margin: 0 auto;
 		}
 	</style>
@@ -124,7 +127,7 @@
 {%block body%}
 
 <section id="sectionPrincipal">
-	<h1>Aprende Jugando</h1>
+	<h1><div id="nombreJuego">Aprende Jugando</div></h1>
 	<h2>Categorías</h2>
 
 

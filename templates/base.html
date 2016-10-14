@@ -4,13 +4,19 @@
 	<title>{%block titulo%}{%endblock%}</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
 	<style type="text/css">
+		@font-face {
+				font-family: 'Bitter';
+				src: url(/static/fonts/Bitter/Bitter-Regular.ttf) format('truetype');
+		}
 		*{
 			margin: 0;
 			padding: 0;
+			font-family: 'Bitter', 'Serif';
 		}
 		#barraSuperior{
-			height: 60px;
+			height: 50px;
 			border-top: 1px solid skyblue;
 			border-bottom: 1px solid skyblue;
 			position: absolute;
@@ -18,7 +24,7 @@
 		}
 		#navPrincipal{
 			width: 70%;
-			height: 60px;
+			height: 50px;
 			float: right;
 			text-align: right;
 			vertical-align: middle;
@@ -32,7 +38,7 @@
 		}
 		#navPrincipal ul li{
 			display: table-cell;
-			padding: 10px;
+			padding: 5px 10px;
 			border-left: 1px solid rgba(255,255,255,0.5);
 		}
 		#navPrincipal ul li a{
@@ -46,7 +52,7 @@
 			width: 30%;
 			height: 60px;
 			float: left;
-			padding: 10px;
+			padding: 5px 10px;
 			box-sizing: border-box;
 			color: white;
 			vertical-align: middle;
@@ -68,9 +74,9 @@
 			box-sizing: border-box;
 			box-shadow: 0px 0px 5px #aaa inset;
 			color: white;
-			height: 100px;
-			margin-top: -100px;
-			padding: 30px;
+			height: 70px;
+			margin-top: -70px;
+			padding: 12px;
 			text-align: center;
 		}
 	</style>
@@ -85,8 +91,8 @@
 	<nav id="navPrincipal">
 		<ul>
 			<li id="puntuaciones"><a href="/puntuaciones/">Puntuaciones</a></li>
-			<li id="categorias"><a href="/index/">Categorías</a></li>
 			{%if user.is_authenticated%}
+			<li id="categorias"><a href="/index/">Categorías</a></li>
 			<li >Hola {{user.alias}} (<a href="/salir/">Salir</a>)</li>
 			{%endif%}
 		</ul>
@@ -98,5 +104,69 @@
 	<h4>Seminario</h4>
 </footer>
 </div>
+
+<script type="text/javascript">
+  var bs = document.getElementById("barraSuperior");
+  var log = document.getElementById("logo");
+  var np = document.getElementById("navPrincipal");
+  var nj = document.getElementById("nombreJuego");
+  bs.onmouseover = bsMouseOver;
+  bs.onmouseout  = bsMouseOut;
+  log.style.display = "none";
+  np.style.display = "none";
+  function bsMouseOver(){
+    log.style.display = "block";
+    np.style.display = "block";
+    nj.style.display = "none";
+  }
+  function bsMouseOut(){
+    log.style.display = "none";
+    np.style.display = "none";
+    nj.style.display = "block";
+  }
+
+  //para acomodar el fondo si el alto de la pag, es muy pequeño
+  console.log(window.innerHeight);
+  var cuerp0 = document.getElementsByTagName('body')[0];
+  var barraS = document.getElementById('barraSuperior');
+
+  ajustar(); //hace el ajuste solo se carga la página
+
+  cuerp0.onresize = function(){ //si cambia de tamaño la página... reajusta
+  	console.log(window.innerWidth);
+  	ajustar();
+  }
+
+  function ajustar(){
+  	if( window.innerHeight < 550 ){
+  		cuerp0.style.height = '130%';
+  		//cuerp0.style.backgroundSize = '130% 100%';
+  	}
+  	else{
+  		cuerp0.style.height = '100%';
+  		//cuerp0.style.backgroundSize = '100%';
+  	}
+// 	if( window.innerWidth < 1200 ){
+// 		cuerp0.style.width = '130%';
+// 		cuerp0.style.backgroundSize = '130% 100%';
+// 		barraS.style.width = '130%';
+// 	}
+// 	else{
+// 		cuerp0.style.width = '100%';
+// 		cuerp0.style.backgroundSize = '100%';
+// 		barraS.style.width = '100%';
+// 	}
+//   	if( window.innerHeight < 550 & window.innerWidth < 1200 ){
+//   		cuerp0.style.width = '130%';
+//   		cuerp0.style.height = '130%';
+// 		cuerp0.style.backgroundSize = '130% 130%';
+//   	}else{
+//   		cuerp0.style.width = '100%';
+//   		cuerp0.style.height = '100%';
+// 		cuerp0.style.backgroundSize = '100%';
+//   	}
+}
+</script>
+
 </body>
 </html>
