@@ -192,7 +192,7 @@ draw = function(){
 	for (var i = 0; i < ima.length; i++) {
 		ima[i].dibujar();	
 	}
-	if (contador == 19) {
+	if (contador == 0) {
 		
 		crono.detener();
 		var tiempo = document.getElementById("crono").innerText;
