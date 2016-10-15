@@ -173,6 +173,7 @@ function Cronometro(idDisplay){
     }
   };
   this.kill = function(){
+    window.clearInterval(this.crono);
     reloj = null;
     display = null;
   }

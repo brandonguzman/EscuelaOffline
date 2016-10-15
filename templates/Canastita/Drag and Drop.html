@@ -1,0 +1,49 @@
+{%extends 'juego.html'%}
+
+{%block juego%}	
+
+	<script src="/static/js/GLOBAL/processing.min.js"></script>
+	<script src="/static/js/GLOBAL/jquery-2.2.3.min.js"></script>
+	<script src="/static/js/GLOBAL/util.js"></script>
+	<script src="/static/js/carrito/animacion.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/Canastita/estilo.css">
+	<style>
+	#dif{
+		display: table;
+	}
+	.data{
+		display: table-cell;
+	}
+	</style>
+
+<div id="midiv">
+	<div id="dif">
+		<p class="data">Seleccione un nivel:</p>
+		<div class="data" id='nivelC'></div>
+		<button class="data" id="boton" onclick="eligio()">Nuevo Juego</button>
+		<div class="data" id="crono"></div>
+	</div>
+	
+	
+
+	<audio id="error" class="audioDemo" controls preload="none"> 
+   		<source src="/static/Audio/Canastita/error.mp3" type="audio/mpeg">
+	</audio>
+
+	<audio id="exito" class="audioDemo" controls preload="none"> 
+   		<source src="/static/Audio/Canastita/peep.mp3" type="audio/mpeg">
+	</audio>
+</div>
+
+	
+	
+<div id="canvas">
+<canvas  data-processing-sources="/static/js/Canastita/Juego-Arrastrar.js"></canvas>
+</div>
+
+<script>
+     var diff = $("#nivelC");
+     $("#nivel").appendTo(diff);
+   </script>	
+
+{%endblock%}
