@@ -1,0 +1,29 @@
+{%extends 'juego.html'%}
+
+{%block juego%} 
+
+  <link rel="stylesheet" type="text/css" href="/static/css/Burbujitas/estilo.css">
+  <script src="/static/js/GLOBAL/processing.min.js"></script>
+  <script src="/static/js/GLOBAL/util.js"></script>
+  
+  
+   <div id=division>
+      <div class="data" id="dif">
+        <p> Nivel </p>
+      </div>
+     
+      <button class="data" onclick="seleccion()" id="boton">Iniciar</button> 
+    </div>
+  <audio id="error" class="audioDemo" controls preload="none"> 
+      <source src="/static/Audio/Burbujitas/error.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="exito" class="audioDemo" controls preload="none"> 
+      <source src="/static/Audio/Burbujitas/muybien.mp3" type="audio/mpeg">
+  </audio>
+  
+  <canvas id="micanvas" data-processing-sources="/static/js/Burbujitas/burbuja.js"> </canvas>
+  <script>
+    setNivel("dif");
+   </script>
+ {%endblock%}

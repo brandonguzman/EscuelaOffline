@@ -1,0 +1,44 @@
+#division
+{
+	background: rgba(183,222,237,1);
+	width: 600px;
+	text-align: left;
+	margin: 0 auto;
+	display: table;
+	padding: 5px 10px;
+	box-sizing: border-box;
+
+background: -moz-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 58%, rgba(33,180,226,1) 99%, rgba(183,222,237,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(183,222,237,1)), color-stop(58%, rgba(113,206,239,1)), color-stop(99%, rgba(33,180,226,1)), color-stop(100%, rgba(183,222,237,1)));
+background: -webkit-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 58%, rgba(33,180,226,1) 99%, rgba(183,222,237,1) 100%);
+background: -o-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 58%, rgba(33,180,226,1) 99%, rgba(183,222,237,1) 100%);
+background: -ms-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 58%, rgba(33,180,226,1) 99%, rgba(183,222,237,1) 100%);
+background: linear-gradient(to right, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 58%, rgba(33,180,226,1) 99%, rgba(183,222,237,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed', GradientType=1 );
+}
+
+.data{
+	display: table-cell;
+}
+#micanvas{
+	display: none;
+	margin: 0 auto;
+}
+
+#boton:checked ~#micavas {
+	display: inline;
+}
+#division p{
+	font-size: 16px;
+	
+	display: inline;
+}
+
+#error{
+  display: none;
+}
+
+#exito{
+  display: none;
+}
+
