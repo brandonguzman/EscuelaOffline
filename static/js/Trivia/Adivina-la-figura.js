@@ -3,7 +3,7 @@ var nivel = 0;
 var escribir = [];//Variable en donde se van almacenando las teclas precionadas en array
 var cadena; 
 var intentos = 10;
-var haciertos = 0;
+var aciertos = 0;
 var errores = 0;
 var punteo = 0;
 var alerta;
@@ -62,7 +62,7 @@ eligio = function () {
 var oneCLick = function(){
 	resultOK = 0;
 	intentos = 10;
-	haciertos = 0;
+	aciertos = 0;
 	errores = 0;
 	punteo = 0;
 	alerta = "DA CLICK EN EL AREA DEL JUEGO Y UTILIZA TU TECLADO PARA ESCRIBIR TU RESPUESTA";
@@ -107,7 +107,7 @@ draw = function(){
 	
 		textSize(15);
 		fill(0);
-		text("Intentos Restantes: " + intentos + "    Haciertos: " + haciertos + "    Errores: " + errores + "    Puntos: " + punteo, 8, 15);
+		text("Intentos Restantes: " + intentos + "    Aciertos: " + aciertos + "    Errores: " + errores + "    Puntos: " + punteo, 8, 15);
 
 		text(alerta, 8, 480);
 		/*Dibuja la imagen del objeto a responder con forme al nivel lo realiza mientas el
@@ -265,7 +265,7 @@ var comprobarCadena = function (nivelVector, cadena){
   				};
   				
   				
-  				haciertos++;
+  				aciertos++;
   				intentos--;
   				punteo += 5;
   			}
