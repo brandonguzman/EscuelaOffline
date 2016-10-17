@@ -119,6 +119,8 @@ class BaseJuego(TemplateView, Logueado):
 			return 'Burbujitas/burbuja.html'
 		elif( nombre_juego == 'Trivia' ):
 			return 'Trivia/Adivina la figura.html'
+		elif( nombre_juego == 'Puzzle' ):
+			return 'Puzzle/puzzle.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(BaseJuego, self).get_context_data(**kwargs)
