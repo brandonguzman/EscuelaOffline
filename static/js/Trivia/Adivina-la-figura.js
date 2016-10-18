@@ -106,9 +106,10 @@ draw = function(){
 		text("ESCRIBE EN INGLES EL NOMBRE \n DE LA FIGURA REPRESENTADA \n                EN LA IMAGEN",85,60);
 	
 		textSize(15);
-		fill(0);
-		text("Intentos Restantes: " + intentos + "    Aciertos: " + aciertos + "    Errores: " + errores + "    Puntos: " + punteo, 8, 15);
+		fill(255);
+		text("Intentos Restantes: " + intentos + "    Aciertos: " + aciertos + "    Errores: " + errores + "    Puntos: " + punteo, 8, 17);
 
+		fill(0);
 		text(alerta, 8, 480);
 		/*Dibuja la imagen del objeto a responder con forme al nivel lo realiza mientas el
 		juego no haya terminado*/	

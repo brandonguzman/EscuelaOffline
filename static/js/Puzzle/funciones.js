@@ -19,7 +19,7 @@ var creaPieza = function (posiciones, cordenadasIIxII, tPieza){
 
 
 /*es necesario un random mas personalizado en la  matrix de 2x2 ya que es mas alta la probabilidad de que el juego de una 
-vez aparezca ganado y al ser una matriz de dosXdos hay 4 movimiendos que hacen que el juego no se pueda solucionar al no 
+vez aparezca ganado y al ser una matriz de 2X2 hay 12 movimientos que hacen que el juego no se pueda solucionar al no 
 permitir ordenar las piezas de manera secuencial en el puzzle*/
 var randPuzzleIIxII = function(cordenadasIIxII, nRand){
 	if(nRand == 0){
