@@ -101,6 +101,34 @@ function fillRandValMatrix(m,val,n){
     }
   }
 }
+//funcion q ingresa un valor en una matriz no por (x,y) sino q solo con una posición
+// |0|1|2| 
+// |3|4|5|
+// |6|7|8|
+// si se pasa la posición 5, se ingresa en la matriz en [1][2];
+function setValMatrix(val, pos, matrix){
+  var h = matrix.length;
+  var w = matrix[0].length;
+  //console.log("ancho: "+w); console.log("alto: "+h);
+  var tam = (h*w)-1;
+  if( pos>tam ){
+    console.log("La posición no es válida: "+pos+">"+tam);
+    return;
+  }
+  if( pos<w ){
+    matrix[0][pos] = val;
+    //console.log("matrix["+0+"]["+pos+"]");
+    return matrix;
+  }
+  var fil = parseInt( pos/w );
+  //alert(fil);
+  var col = pos - ( fil*w );
+  //console.log("matrix["+fil+"]["+col+"]");
+  matrix[fil][col] = val;
+  return matrix;
+}
+
+
 //reloj donde se guarda el tiempo transcurrido
 function Reloj(){
   this.strTime = "";

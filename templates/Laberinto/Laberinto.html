@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Laberinto</title>
+	<script src="processing.min.js"></script>
+	<script src="util.js"></script>
+</head>
+<body>
+<style>
+	.juego-principal{
+		box-sizing: border-box;
+		width: 803px;
+		display: block;
+		border: 1px solid #666;
+	}
+	.juego-info{
+		width: 100%;
+		height: 30px;
+		display: table;
+		padding: 3px 8px;
+		background-color: #666;
+		box-sizing: border-box;
+	}
+	.juego-dato{
+		display: table-cell;
+		height: 100%;
+		box-sizing: border-box;
+	}
+	.juego-dato:first-child{
+		text-align: left;
+	}
+	.juego-dato:last-child{
+		text-align: right;
+	}
+	.no-style{
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+	.juego-text-color{
+		color: white;
+	}
+	#laberinto{
+		height: 433px;
+	}
+
+</style>
+ <div id="laberinto" class="juego-principal">
+ 	<div id="lab-datos" class="juego-info juego-text-color">
+ 		<div id="lab-tiempo" class="juego-dato">00:00:00</div>
+ 		<div id="lab-nivel"  class="juego-dato"><p class="no-style">Nivel: </p></div>
+ 		<div id="lab-nuevo"  class="juego-dato"><button onclick="mouseClick()">Nuevo</button></div>
+ 	</div>
+ 	<canvas id="lab-canvas" class="juego-canvas" data-processing-sources="Laberinto.js"></canvas>
+ </div>
+ <div id="ll"></div>
+</body>
+</html>
