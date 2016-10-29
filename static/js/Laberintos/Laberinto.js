@@ -5,10 +5,7 @@ void setup(){
   PFont fontA = loadFont("arial");
   textFont(fontA, 12);
 	frameRate(50);
-	generarLaberinto();
-	initImagen();
-	//generarCamino();
-	crearLaberintos();
+	
 };
 
 function initImagen(){
@@ -77,8 +74,9 @@ draw = function(){
 			image(mouseWin,210,0);
 			text("HAS GANADO",320,40);
 			ganado = false;
-			
-			guardarPunteo(1000,);
+			crono.detener();
+			var pp = document.getElementById("lab-tiempo").innerText;
+			guardarPunteo(1000,pp,"nivel");
 		},500);
 	}
 	if( noIniciado ){
@@ -156,7 +154,7 @@ function generarLaberinto(){
 };
 
 function setNivel(){
-	nivel = 1;
+	nivel = document.getElementById("nivel").value;
 };
 
 function generarCamino(){
@@ -219,11 +217,18 @@ mouseClick = function(){
 	// var Y = parseInt(mouseY/tamCasilla);
 	// var X = parseInt(mouseX/tamCasilla);
 	// alert(X+","+Y);
+	generarLaberinto();
+	initImagen();
+	//generarCamino();
+	crearLaberintos();
 	jugando = true;
 	noIniciado = false;
 	document.getElementById("lab-canvas").focus();
 	if( crono ){
 		crono.kill();
+		crono = null;
+		crono = new Cronometro("lab-tiempo");
+		crono.iniciar();
 	}else{
 		crono = new Cronometro("lab-tiempo");
 		crono.iniciar();
