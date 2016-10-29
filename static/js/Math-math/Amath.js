@@ -21,6 +21,7 @@ var draged = true;
 var alerta = "";
 var xAlert = 0;
 var mostrarAlerta = false;
+var movido = false;
 
 // cargo la imagen de la nube
 nube = new PImage(); 
@@ -324,12 +325,21 @@ arrastra = function(objeto){
 			objeto.x = mouseX;
 			objeto.y = mouseY;
 				
+		
+		}
+	}
+	
+
+
+mouseReleased = function() {
 			//se recorre el vector de objetos de nubes.
 		for (var i = 0; i < ima.length; i++) {
 			// se verifica a que objeto de tipo nube se arrastrar el numero.
 			if (objeto.x >= ima[i].x & objeto.x <= ima[i].x + 55 & objeto.y >= ima[i].y & objeto.y <= ima[i].y + 50 ) {
 					//se verifica si la nube no tiene nada.
+					movido = true;
 					if (ima[i].text == "") {
+
 						//a esa nube se le asigna el objeto que vamos arrastrando.
 						ima[i].text = objeto.tipo;
 						//el objeto que vamos arrastrando le pasamos vacio para hacer el efecto que desaparece.
@@ -343,12 +353,19 @@ arrastra = function(objeto){
 						objeto.x = posX;
 						objeto.y = posY;
 						objeto.size = 30;
-					}
-				}		
-			}	
-		}
-	}	
+						}
+				}	
+			}
+				if (movido) {
+					movido = false;
+				}else{
+					objeto.x = posX;
+					objeto.y = posY;
+					objeto.size = 30;
+				}
+	}
 };
+
 
 // se llama esta funcion para verificar la operacion
 verificaOp = function(ima){

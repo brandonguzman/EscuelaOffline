@@ -1,0 +1,37 @@
+{%extends 'juego.html'%}
+
+{%block juego%} 
+  
+  <script  src="/static/js/GLOBAL/processing.min.js"></script>
+  <script  src="/static/js/GLOBAL/util.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/bombita/estilo.css">
+  
+ 
+  <div id=division>
+    <div class="data" id="dif">
+        <p> Nivel </p>
+    </div>
+    <button class="data" onclick="seleccion()" id="boton">Iniciar</button>
+  </div>
+
+  <audio id="error" class="audioDemo" controls preload="none"> 
+      <source src="/static/Audio/bombita/no.mp3" type="audio/mpeg"> </source>
+  </audio>
+
+  <audio id="exito" class="audioDemo" controls preload="none"> 
+      <source src="/static/Audio/bombita/muybien.mp3" type="audio/mpeg"></source>
+  </audio>
+  <audio id="explosion" class="audioDemo" controls preload="none"> 
+      <source src="/static/Audio/bombita/explosion.mp3" type="audio/mpeg"></source>
+  </audio>
+  <audio id="lanzamiento" class="audioDemo" controls preload="none"> 
+      <source src="/static/Audio/bombita/lanzamiento.mp3" type="audio/mpeg"></source>
+  </audio>
+  
+
+  <canvas id="micanvas" data-processing-sources="/static/js/bombita/Piedrita.js"> </canvas>
+
+<script>
+    setNivel("dif");
+</script>
+ {%endblock%}
