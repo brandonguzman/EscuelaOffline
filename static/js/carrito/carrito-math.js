@@ -18,6 +18,9 @@ var aux = 1;
 var jugar = false;
 var nivel;
 var cont = 10;
+var alerta = "";
+var xAlert = 0;
+var mostrarAlerta = false;
 
 // funcion para iniciar el juego seleccionando un nivel
 eligio = function () {
@@ -25,6 +28,7 @@ eligio = function () {
         clickDibuja();
         jugar = true;   
         timeOut(200,selectCanvas);
+        cont = 10;
         //var niv = document.getElementById("nivel");
         //niv.focus();
 }
@@ -128,7 +132,7 @@ fichas.prototype.dib = function(nivel){
     if (nivel == 2) {
         nivel = nivel - 0.5;
     }else if (nivel == 3) {
-        nivel = nivel - 1;
+        nivel = nivel - 1.5;
     }
 
     noStroke();
@@ -226,7 +230,7 @@ carro.prototype.dibujar = function() {
         //por ejemplo si el numero que genera ale es 1 se genera una suma.
         var ale =aleat(1,2);
         // genera un numero aleatorio para la dificultad.
-        var e = aleat(1,20);
+        var e = aleat(1,10);
         if (ale == 1) {
             genera = new TriviaMate();
             genera.init("+",e);
@@ -240,7 +244,7 @@ carro.prototype.dibujar = function() {
         //genera un numero aleatorio para cambiar las operaciones.
         //por ejemplo si el numero que genera ale es 1 se genera una multiplicacion.
         var ale = aleat(1,2);
-        var e = aleat(1,15);
+        var e = aleat(1,10);
         if (ale == 1) {
             genera = new TriviaMate();
             genera.init("*",e);
@@ -254,7 +258,7 @@ carro.prototype.dibujar = function() {
         //genera un numero aleatorio para cambiar las operaciones.
         //por ejemplo si el numero que genera ale es 1 se genera una una operacion conbinada suma y resta.
         var ale =aleat(1,2);
-        var e = aleat(2,10);
+        var e = aleat(1,10);
         if (ale == 1) {
             genera = new TriviaMate();
             genera.init("+-",e);
@@ -263,7 +267,6 @@ carro.prototype.dibujar = function() {
             genera.init("*/",e);
         }
     }   
-       cont -=1;
        gene = false;          
     }       
         
@@ -291,21 +294,49 @@ carro.prototype.dibujar = function() {
     choque(carroX,carroY);
 
     if (cont == 0 & nivel ==1 ) {
-            alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
-            guardarPunteo(1000,punteo.punteo,"nivel",null);
+            mostrarAlerta =true;
+            alerta ="Has Terminado la Partida con:"+punteo.punteo+" puntos"; //texto mostrado como alerta
+            xAlert =150;
+            dibujarTextos();
+            guardarPunteo(3000,punteo.punteo,"nivel",null);
+            jugar =false;
         }
     if (cont == 0 & nivel ==2) {
+            mostrarAlerta =true;
+            alerta ="Has Terminado la Partida con:"+punteo.punteo+" puntos"; //texto mostrado como alerta
+            xAlert =150;
+            dibujarTextos();
             alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
-            guardarPunteo(1000,punteo.punteo,"nivel",null);
+            guardarPunteo(3000,punteo.punteo,"nivel",null);
+            jugar = false;
         }
      if (cont == 0 & nivel == 3) {
+            mostrarAlerta =true;
+            alerta ="Has Terminado la Partida con:"+punteo.punteo+" puntos"; //texto mostrado como alerta
+            xAlert =150;
+            dibujarTextos();
             alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
-            guardarPunteo(1000,punteo.punteo,"nivel",null);
+            guardarPunteo(3000,punteo.punteo,"nivel",null);
+            jugar = false;
         }    
 
 
      }
  };
+
+ function dibujarTextos(){
+    fill(100,100,150);
+    textSize(16);
+    if( mostrarAlerta ){
+        fill(250); stroke(250);
+        rect(0,180,710,50);
+        fill(200,140,100);
+        textSize(20);
+        text(alerta, xAlert, 210);
+        mostrarAlerta = false;
+        stroke(0);
+    }
+}
 
  var pocisionFichas = function(ficha1,ficha2,ficha3){
     ficha1.fichaX = 800;
@@ -337,15 +368,17 @@ if (carroX  == ficha1.fichaX & carroY == ficha1.fichaY){
              // le suma 1 al no de asiertos y 5 puntos
              punteo.NoAsiertos +=1;
              punteo.punteo +=5;
+             cont -=1;
 
         }else{
             // dibuja el sol triste 
+
             aux = 0; 
             var v = document.getElementById("error");
              v.play();
             // le suma 1 al numero de errores y le resta 3 al punteo.
             punteo.NoErrores +=1; 
-
+             cont -=1;
             if (punteo.punteo < 0 | punteo.punteo <=3) { 
                 punteo.punteo = 0;
                 }else{                
@@ -366,12 +399,13 @@ if (carroX  == ficha1.fichaX & carroY == ficha1.fichaY){
              v.play();
              punteo.NoAsiertos +=1;
              punteo.punteo +=5;
+             cont-=1;
         }else{
              aux = 0;
              var v = document.getElementById("error");
              v.play();
              punteo.NoErrores +=1; 
-            
+             cont -=1;
              if (punteo.punteo < 0 | punteo.punteo <=3) { 
                 punteo.punteo = 0;
                 }else{                
@@ -390,11 +424,13 @@ if (carroX  == ficha1.fichaX & carroY == ficha1.fichaY){
             aux = 1;
             var v = document.getElementById("exito");
              v.play();
+             cont-=1;
         }else{
              aux = 0;
              var v = document.getElementById("error");
              v.play();
              punteo.NoErrores +=1;
+              cont -=1;
              if (punteo.punteo < 0 | punteo.punteo <=3) { 
                 punteo.punteo = 0;
                 }else{                
