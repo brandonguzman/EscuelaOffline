@@ -1,0 +1,26 @@
+{%extends 'juego.html'%}
+
+{%block juego%}	
+	<script src="/static/js/GLOBAL/processing.min.js"></script>
+	<script src="/static/js/GLOBAL/jquery-2.2.3.min.js"></script>
+	<script src="/static/js/GLOBAL/util.js"></script>
+	<script src="/static/js/AlphabetSoup/matrices.js"></script>
+	<script src="/static/js/AlphabetSoup/animacion.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/AlphabetSoup/estilo.css">
+
+<div id="midiv">
+<p>Seleccione un nivel:</p>
+		<div id="dif"></div>
+		<button id="boton" onclick="eligio()">Nuevo Juego</button>
+		<div id ="crono"> </div>
+</div>
+
+<div id="canvas">
+	<canvas data-processing-sources="/static/js/AlphabetSoup/alphabet_soup.js"></canvas>
+</div>
+
+ 	<script>
+     var diff = $("#dif");
+     $("#nivel").appendTo(diff);
+   </script>	
+{%endblock%}

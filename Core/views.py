@@ -127,6 +127,8 @@ class BaseJuego(TemplateView, Logueado):
 			return 'carrito/carro-math.html'
 		elif( nombre_juego == 'Laberinto' ):
 			return 'Laberinto/Laberinto.html'
+		elif( nombre_juego == 'Alphabet-Soup' ):
+			return 'AlphabetSoup/alphabet_soup.html'
 		
 
 	def get_context_data(self, **kwargs):
