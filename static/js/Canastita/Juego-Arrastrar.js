@@ -43,14 +43,14 @@ function CargaImagenes(r1,r2,l1,l2,vector1,vector2,nivel){
 			// se guarda en un vector objetos de tipo PImage
 			img[i]= new PImage();
 			// luego se guarda en otro vector de objetos, el objeto imagen y el tipo
-			mix[i] = {imagen: img[i] =loadImage(r1+l1+i+".png"),tipo: vector1[i]};	
+			mix[i] = {imagen: img[i] =loadImage(r1+l1+i+".PNG"),tipo: vector1[i]};	
 
 		}
 			if (i > 9) {
 				// se guarda en un vector objetos de tipo PImage
 				img[i]= new PImage();
 				// se guarda en un vector objetos de tipo PImage	
-				mix[i] = {imagen:img[i] = loadImage(r2+l2+i+".png"), tipo: vector2[i - 10]};		
+				mix[i] = {imagen:img[i] = loadImage(r2+l2+i+".PNG"), tipo: vector2[i - 10]};		
 			}		
 		}
 		// se obtiene todo el vector de imagenes y se varagean las imagenes
