@@ -1,0 +1,29 @@
+{%extends 'juego.html'%}
+
+{%block juego%}
+	<script src="/static/js/GLOBAL/processing.min.js"></script>
+	<script src="/static/js/GLOBAL/jquery-2.2.3.min.js"></script>
+	<script src="/static/js/GLOBAL/util.js"></script>
+	<script src="/static/js/Puzzle/funciones.js"></script>	
+	<script src="/static/js/Puzzle/animacion.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/Puzzle/estilo.css">
+
+	<div id="midiv">
+		<p>Seleccione un nivel:</p>
+		<div id="dif"></div>
+		<button id="boton" onclick="eligio()">Nuevo Juego</button>
+		<div id ="crono"> </div>
+		<audio id="error" class="audioDemo" controls preload="none"> 
+   			<source src="/static/Audio/Puzzle/error.mp3" type="audio/mpeg">
+		</audio>
+	</div>
+
+	<div id="canvas">
+		<canvas data-processing-sources="/static/js/Puzzle/puzzle_numerico.js"></canvas>
+	</div>
+
+ 	<script>
+    	var diff = $("#dif");
+    	$("#nivel").appendTo(diff);
+   	</script>
+{%endblock%}

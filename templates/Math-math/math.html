@@ -4,9 +4,10 @@
 
 	<script src="/static/js/GLOBAL/processing.min.js"></script>
 	<script src="/static/js/GLOBAL/jquery-2.2.3.min.js"></script>
-	<script src="/static/js/GLOBAL/util.js"></script>
+	<script src="/static/js/Math-math/MathOper.js"></script>
 	<script src="/static/js/carrito/animacion.js"></script>
-	<link rel="stylesheet" type="text/css" href="/static/css/Canastita/estilo.css">
+	<script src="/static/js/GLOBAL/util.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/Math-math/estilo.css">
 	<style>
 	#dif{
 		display: table;
@@ -16,6 +17,7 @@
 	}
 	</style>
 
+
 <div id="midiv">
 	<div id="dif">
 		<p class="data">Seleccione un nivel:</p>
@@ -23,27 +25,24 @@
 		<button class="data" id="boton" onclick="eligio()">Nuevo Juego</button>
 		<div class="data" id="crono"></div>
 	</div>
-	
-	
 
 	<audio id="error" class="audioDemo" controls preload="none"> 
-   		<source src="/static/Audio/Canastita/error.mp3" type="audio/mpeg">
+   		<source src="/static/Audio/Math-math/error.mp3" type="audio/mpeg">
 	</audio>
 
 	<audio id="exito" class="audioDemo" controls preload="none"> 
-   		<source src="/static/Audio/Canastita/muybien.mp3" type="audio/mpeg">
+   		<source src="/static/Audio/Math-math/muybien.mp3" type="audio/mpeg">
 	</audio>
 </div>
 
-	
-	
 <div id="canvas">
-<canvas data-processing-sources="/static/js/Canastita/Juego-Arrastrar.js"></canvas>
+	<canvas  data-processing-sources="/static/js/Math-math/Amath.js"></canvas>	
 </div>
 
 <script>
     var diff = $("#nivelC");
     $("#nivel").appendTo(diff);
 </script>	
+
 
 {%endblock%}
