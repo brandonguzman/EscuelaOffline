@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Laberinto</title>
-	<script src="processing.min.js"></script>
-	<script src="util.js"></script>
-</head>
-<body>
+{%extends 'juego.html'%}
+
+{%block juego%}
+<script src="/static/js/GLOBAL/processing.min.js"></script>
+<script src="/static/js/GLOBAL/util.js"></script>
 <style>
 	.juego-principal{
 		box-sizing: border-box;
@@ -43,16 +40,23 @@
 	#laberinto{
 		height: 433px;
 	}
+	#lab-tiempo{
+		width: 150px;
+	}
 
 </style>
  <div id="laberinto" class="juego-principal">
  	<div id="lab-datos" class="juego-info juego-text-color">
  		<div id="lab-tiempo" class="juego-dato">00:00:00</div>
- 		<div id="lab-nivel"  class="juego-dato"><p class="no-style">Nivel: </p></div>
+ 		<div id="lab-nivel"  class="juego-dato"><p class="no-style" style="display: inline-block;width:100px;">Nivel: </p></div>
  		<div id="lab-nuevo"  class="juego-dato"><button onclick="mouseClick()">Nuevo</button></div>
  	</div>
- 	<canvas id="lab-canvas" class="juego-canvas" data-processing-sources="Laberinto.js"></canvas>
+ 	<canvas id="lab-canvas" class="juego-canvas" data-processing-sources="/static/js/Laberintos/Laberinto.js"></canvas>
  </div>
  <div id="ll"></div>
-</body>
-</html>
+
+ <script>
+ 	setNivel("lab-nivel"); //añade los niveles a la barra superior
+ </script>
+
+{%endblock juego%}

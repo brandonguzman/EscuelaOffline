@@ -40,7 +40,7 @@ var labs2 = [];
 var labs3 = [];
 
 labs1.push(lab)
-var path = "imgM/";
+var path = "/static/img/Laberinto/";
 var front = new Array(4);
 var left = new Array(4);
 var right = new Array(4);
@@ -77,6 +77,8 @@ draw = function(){
 			image(mouseWin,210,0);
 			text("HAS GANADO",320,40);
 			ganado = false;
+			
+			guardarPunteo(1000,);
 		},500);
 	}
 	if( noIniciado ){
