@@ -103,6 +103,9 @@ Casilla.prototype.inicio = function(){
 void setup(){
 	Background = new PImage();
 	Background = loadImage("/static/img/AlphabetSoup/background.png");
+
+	pantallaFinJuego = new PImage();
+	pantallaFinJuego = loadImage("/static/img/AlphabetSoup/pantallaFinJuego.png");
 };
 
 creaNivel = function(){
@@ -285,10 +288,15 @@ killJuego = function(){
 	if(cont == 10){
 		crono.detener();
 		crono.kill();
-		var tiempo = document.getElementById("crono").innerText;
-		guardarPunteo(3000,tiempo,"nivel",null);
 
-		alert("YOU WIN");
+		var tiempo = document.getElementById("crono").innerText;
+		guardarPunteo(8000,tiempo,"nivel",null);
+
+		image(pantallaFinJuego, 0, 0);
+		textSize(80);
+		fill(255);
+		text(tiempo, 135, 350);
+
 		jugar = false;
 	}
 }

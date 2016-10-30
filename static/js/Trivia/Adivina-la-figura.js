@@ -149,7 +149,7 @@ draw = function(){
 		
 		if(intentos == 0){
 			finDelJuego(z);
-			guardarPunteo(1000,punteo,"nivel",null);
+			guardarPunteo(4000,punteo,"nivel",null);
   			gameOver = true;
   			juega = false;
 		};
