@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^salir/$', views.logout, {'next_page': '/entrar/'} ),
     url(r'^crear/$', NuevoUsuario.as_view() ),
     url(r'^guardar_punteo/$', guardarPunteo ),
+    url(r'^puntuaciones/$', Punteos.as_view() ),
 ]
