@@ -79,7 +79,7 @@ tbody tr td:last-child(){
 
 
 <section id="juego">
-  <h2><div id="nombreJuego">{{juego.nombre}}</div></h2>
+  <h2><div id="nombreJuego">{{juego.categoriaJuego}} - {{juego.nombre}}</div></h2>
   <select id="nivel">
     {%for n in niveles%}
     <option value="{{n.nivel.codigo}}">{{n.nivel}}</option>

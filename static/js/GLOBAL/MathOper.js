@@ -66,6 +66,8 @@ TriviaMate.prototype.init = function(oper, dif){ //dif = dificultad (1-10), oper
     }
   }
   this.r = r;
+  if( this.r % 1 != 0 )
+    this.r = this.r.toFixed(2);
   var op = [r,r,r];
   op[0]= r; op[1] = r; op[2] = r;
   var salir = false;
@@ -94,6 +96,12 @@ TriviaMate.prototype.init = function(oper, dif){ //dif = dificultad (1-10), oper
       op[i] = aux;
   }
   this.op1 = op[0]; this.op2 = op[1]; this.op3 = op[2]; //seteamos las variables 'op#'
+  if( this.op1 % 1 != 0 )
+    this.op1 = this.op1.toFixed(2);
+  if( this.op2 % 1 != 0 )
+    this.op2 = this.op2.toFixed(2);
+  if( this.op3 % 1 != 0 )
+    this.op3 = this.op3.toFixed(2);
 }
 TriviaMate.prototype.randTrue = function(){ //solo devuelve true o false aleatoriamente
   var aux = Math.round(Math.random()*2);

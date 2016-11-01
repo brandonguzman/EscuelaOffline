@@ -1,3 +1,4 @@
+
 void setup(){
   size(801,401);
   background(colorFondo);
@@ -32,9 +33,7 @@ var laberinto = null;
 var camino = 9; //representa una casilla con camino el la matriz
 var puntoInicial = new Punto(2,2);
 var puntoFinal = null;
-var labs1 = []; //laberintos predefinidos
-var labs2 = [];
-var labs3 = [];
+
 
 labs1.push(lab)
 var path = "/static/img/Laberinto/";
@@ -45,7 +44,10 @@ var back = new Array(4);
 PImage imgCheese = loadImage(path+"cheese.png");
 PImage mouseWin = loadImage(path+"mouse-cheese.jpg");
 PImage mouseR = loadImage(path+"mouse-and-cheese.png");
-PImage ladrillo = loadImage(path+"ladrillo.jpg");
+//PImage ladrillo = loadImage(path+"ladrillo.jpg");
+PImage fondo = loadImage(path+"fondo-pasto.jpg");
+PImage cuadro = loadImage(path+"cuadro.png");
+
 var caminando = true;
 var mouse = null;
 var cheese = null;
@@ -54,14 +56,14 @@ var noIniciado = true;
 var crono = null;
 
 draw = function(){
-	//ganado = true;
-	//jugando = false;
+	//ganado = false;
+	//jugando = true;
 	//noIniciado = false;
 	if( jugando ){
-		background(colorFondo);
+		image(fondo,0,0,800,400);
 		dibujarLaberinto();
 		dibujarRaton();
-		if( mouse.xx == cheese.xx & mouse.yy == cheese.yy ){
+		if( mouse.xx == cheese.yy & mouse.yy == cheese.xx ){
 			jugando = false;
 			ganado = true;
 		}
@@ -88,52 +90,97 @@ draw = function(){
 	}
 };
 
-function preLabs(){
-	labs1.push( [0,2,3,4,5,6,15,30,60,101,102,103,104,105,108,109,22,40,41,20,62,82,122,142,162,163,164,165,42,125,126,127,107,87,67,47,48,49,29,10,11,12,13,14,16,17,18,19,39,59,58,57,56,55,75,95,94,93,92,112,132,147,148,168,188,189,190,191,171,172,173,174,175,176,196,197,198,199,84,64,65,45,25,100,120,140,160,180,181,166,89,90,70,71,55,130,131,133,134,135,136,116,52,53,33,179,158,139,78,138,118,117,150,99,157] );
-	labs2.push( [1,2,3,4,5,6,7,8,9,0] );
-	labs3.push( [3,4,5,6,7] );
-}
-
 function crearLaberintos(){
 	preLabs();
-	var v = null;
+	var f = null;
 	if( nivel == 1 ){
 		var al = aleat(0,labs1.length-1);
-		v = labs1[al];
+		f = labs1[al];
 	}else if( nivel == 2 ){
 		var al = aleat(0,labs2.length-1);
-		v = labs2[al];
+		f = labs2[al];
 	}else if( nivel == 3 ){
 		var al = aleat(0,labs3.length-1);
-		v = labs3[al];
+		f = labs3[al];
 	}
+	f(laberinto);
 	//printArray(v);
 	//console.log(v.length);
-	for(var i=0; i<v.length; i++){
-		setValMatrix(-1,v[i],laberinto);
-	}
+	//for(var i=0; i<v.length; i++){
+		//setValMatrix(-1,v[i],laberinto);
+	//}
 	//printArray(laberinto);
 };
 
+// function dibujarLaberinto(){
+// 	stroke(133); fill(200);
+// 	tCasilla = tamCasilla;
+// 	for(var i=0; i<laberinto.length; i++){
+// 		for(var j=0; j<laberinto[i].length; j++){
+// 			if( puntoInicial.x == i & puntoInicial.y == j )
+// 			 	fill(0);
+// 			if( puntoFinal.x == i & puntoFinal.y == j )
+// 			 	fill(0,0,255);
+// 			if( laberinto[i][j] != -1 ){
+// 				fill(250);
+// 				image(ladrillo,j*tCasilla,i*tCasilla,tCasilla,tCasilla);
+// 			}
+// 			//rect(j*tCasilla,i*tCasilla,tCasilla,tCasilla);
+// 			//fill(0);
+// 			//text(laberinto[i][j],j*tCasilla+5,i*tCasilla+15);
+// 			//fill(200);
+// 		}
+// 	}
+// };
+
+var caja = null;
+//se usan para mover el circulo amarillo
+var xini = 0; 
+var xfin = 8;
+var yini = 0;
+var yfin = 8;
+//se usan para dibujar el laberinto
+var XI = xini;
+var XF = xfin;
+var YI = yini;
+var YF = yfin;
+
 function dibujarLaberinto(){
-	stroke(133); fill(200);
+	stroke(215,85,105); fill(200,80,10);
 	tCasilla = tamCasilla;
-	for(var i=0; i<laberinto.length; i++){
-		for(var j=0; j<laberinto[i].length; j++){
-			if( puntoInicial.x == i & puntoInicial.y == j )
-			 	fill(0);
-			if( puntoFinal.x == i & puntoFinal.y == j )
-			 	fill(0,0,255);
-			if( laberinto[i][j] != -1 ){
-				fill(250);
-				image(ladrillo,j*tCasilla,i*tCasilla,tCasilla,tCasilla);
+	fill(colorFondo);
+	XI = xini;
+	XF = xfin;
+	YI = yini;
+	YF = yfin;
+	if( XI < 0) XI = 0;
+	if( XF > laberinto.length ) XF = laberinto.length;
+	if( YI < 0) YI = 0;
+	if( YF > laberinto[0].length ) YF = laberinto[0].length;
+	//console.log("yini y xini: "+yini,","+xini+" - yFin y xFin: "+yfin,","+xfin);
+	for(var i=XI; i<XF; i++){
+		for(var j=YI; j<YF; j++){
+			//stroke(255,151,40); fill(255,151,40);
+			stroke(255); fill(0,0,250);
+			caja = laberinto[i][j];
+			if( caja.arr ){
+				rect(j*tamCasilla+2,i*tamCasilla,tCasilla,2);
 			}
-			//rect(j*tCasilla,i*tCasilla,tCasilla,tCasilla);
-			//fill(0);
-			//text(laberinto[i][j],j*tCasilla+5,i*tCasilla+15);
-			//fill(200);
+			if( caja.aba ){
+				rect(j*tamCasilla+2,i*tamCasilla+tCasilla,tCasilla,2);
+			}
+			if( caja.izq ){
+				rect(j*tamCasilla,i*tamCasilla,2,tCasilla);
+				//fill(colorFondo);stroke(colorFondo);
+				//rect(j*tamCasilla-3,i*tamCasilla+4,2,tCasilla-4);
+			}
+			if( caja.der ){
+				rect(j*tamCasilla+tCasilla,i*tamCasilla,2,tCasilla);
+			}
+			//text(i+","+j,j*tCasilla+5,i*tCasilla+15);
 		}
 	}
+	image(cuadro,yini*tCasilla-4,xini*tCasilla-4,(yfin-yini)*tCasilla+8,(xfin-xini)*tCasilla+8);
 };
 
 function generarLaberinto(){
@@ -149,6 +196,7 @@ function generarLaberinto(){
 		mM = 20;
 	}
 	fillMatrix( laberinto ); //llenamos la matriz de ceros
+	llenarMatriz(laberinto);
 	tamCasilla = 800/laberinto[0].length;
 	puntoFinal = new Punto(laberinto[0].length-3,laberinto.length-3);
 };
@@ -217,6 +265,16 @@ mouseClick = function(){
 	// var Y = parseInt(mouseY/tamCasilla);
 	// var X = parseInt(mouseX/tamCasilla);
 	// alert(X+","+Y);
+	//se usan para mover el circulo amarillo
+	xini = 0; 
+	xfin = 8;
+	yini = 0;
+	yfin = 8;
+	//se usan para dibujar el laberinto
+	XI = xini;
+	XF = xfin;
+	YI = yini;
+	YF = yfin;
 	generarLaberinto();
 	initImagen();
 	//generarCamino();
@@ -232,6 +290,58 @@ mouseClick = function(){
 	}else{
 		crono = new Cronometro("lab-tiempo");
 		crono.iniciar();
+	}
+};
+
+var todas = [];
+
+mouseC = function(){
+	var Y = parseInt(mouseY/tamCasilla);
+	var X = parseInt(mouseX/tamCasilla);
+	var y = mouseY-Y*tamCasilla;
+	var x = mouseX-X*tamCasilla;
+	var mitad = parseInt(tamCasilla/2);
+	var unCuarto = parseInt(tamCasilla/4);
+	var arr = false;
+	var aba = false;
+	var izq = false;
+	var der = false;
+	if( y>=0 & y<unCuarto )
+		arr = true;
+	if( y>=unCuarto*3 & y<= tamCasilla )
+		aba = true;
+	if( x>=0 & x<unCuarto )
+		izq = true;
+	if( x>=unCuarto*3 & x<= tamCasilla )
+		der = true;
+	// if( arr )
+	// 	arr = "true";
+	// else
+	// 	arr = "false";
+	// if( aba )
+	// 	aba = "true";
+	// else
+	// 	aba = "false";
+	// if( izq )
+	// 	izq = "true";
+	// else
+	// 	izq = "false";
+	// if( der )
+	// 	der = "true";
+	// else
+	// 	der = "false";
+	var parraf = "abrirCamino("+Y+","+X+","+"laberinto,"+arr+","+aba+","+izq+","+der+");";
+	todas.push( parraf );
+	abrirCamino(Y,X,laberinto,arr,aba,izq,der);
+
+};
+
+mostrarMovimientosAg = function(){
+	var movvs = document.getElementById('movs');
+	for(i=0; i<todas.length; i++){
+		var p = document.createElement("p");
+		p.innerText = todas[i];
+		movvs.appendChild( p );
 	}
 };
 
@@ -264,42 +374,64 @@ function Mouse(x,y){
 	this.imagen = this.img[0];
 	this.next = 0;
 	this.mov1mas = 0; //para poder moverse un poco
+	this.actual = null;
 };
 Mouse.prototype.moverIzq = function(){
 	this.img = left;
-	if( this.caminar(this.xx-1,this.yy) ){
-		this.x -= tamCasilla;
-		this.xx = parseInt((this.x)/tamCasilla);
+	this.actual = laberinto[this.xx][this.yy];
+	if( yini > -2 & this.yy-yini<=4 ){
+		yfin--; yini--;
 	}
-};
-Mouse.prototype.moverDer = function(){
-	this.img = right;
-	if( this.caminar(this.xx+1,this.yy) ){
-		this.x += tamCasilla;
-		this.xx = parseInt((this.x)/tamCasilla);
-	}
-};
-Mouse.prototype.moverArr = function(){
-	this.img = back;
-	if( this.caminar(this.xx,this.yy-1) ){
+	if( this.caminar(this.xx,this.yy-1) & !this.actual.izq ){
 		this.y -= tamCasilla;
 		this.yy = parseInt((this.y)/tamCasilla);
 	}
+	console.log(this.xx+","+this.yy+":"+this.actual.arr+","+this.actual.aba+","+this.actual.izq+","+this.actual.der);
 };
-Mouse.prototype.moverAba = function(){
-	this.img = front;
-	if( this.caminar(this.xx,this.yy+1) ){
+Mouse.prototype.moverDer = function(){
+	this.img = right;
+	this.actual = laberinto[this.xx][this.yy];
+	if( yfin < laberinto[0].length+2 & yfin-this.yy<=4 ){
+		yfin++; yini++;
+	}
+	if( this.caminar(this.xx,this.yy+1) & !this.actual.der ){
 		this.y += tamCasilla;
 		this.yy = parseInt((this.y)/tamCasilla);
 	}
+	console.log(this.xx+","+this.yy+":"+this.actual.arr+","+this.actual.aba+","+this.actual.izq+","+this.actual.der);
+};
+Mouse.prototype.moverArr = function(){
+	this.img = back;
+	this.actual = laberinto[this.xx][this.yy];
+	if( xini > -2 & this.xx-xini<=4 ){
+		xfin--; xini--;
+	}
+	if( this.caminar(this.xx-1,this.yy) & !this.actual.arr ){
+		this.x -= tamCasilla;
+		this.xx = parseInt((this.x)/tamCasilla);
+	}
+	console.log(this.xx+","+this.yy+":"+this.actual.arr+","+this.actual.aba+","+this.actual.izq+","+this.actual.der);
+};
+Mouse.prototype.moverAba = function(){
+	this.img = front;
+	this.actual = laberinto[this.xx][this.yy];
+	if( xfin < laberinto.length+2 & xfin-this.xx<=4 ){
+		xfin++; xini++;
+	}
+	if( this.caminar(this.xx+1,this.yy) & !this.actual.aba ){
+		this.x += tamCasilla;
+		this.xx = parseInt((this.x)/tamCasilla);
+	}
+	console.log(this.xx+","+this.yy+":"+this.actual.arr+","+this.actual.aba+","+this.actual.izq+","+this.actual.der);	
 };
 Mouse.prototype.caminar = function(x,y){
-	console.log(x+","+y);
-	if( x<laberinto[0].length & y<laberinto.length & x>=0 & y>=0 ){
-		this.next = laberinto[y][x];
-		if( this.next == -1 ){
-			return true;
-		}
+	console.log("caminar hacia: "+x+","+y);
+	console.log(laberinto.length+","+laberinto[0].length);
+	if( x<laberinto.length & y<laberinto[0].length & x>=0 & y>=0 ){
+		//this.next = laberinto[y][x]; //en realidad next es la casilla actual
+		//if( this.next == -1 ){
+			return true;06
+		//}
 	}
 	return false;
 }
@@ -307,7 +439,7 @@ Mouse.prototype.caminar = function(x,y){
 function dibujarRaton(){
 	fill(0);
 	image(cheese.img,cheese.x-15,cheese.y-10); //dibujando el queso
-	image(mouse.imagen,mouse.x-mM,mouse.y-mM); //dibujando el ratón
+	image(mouse.imagen,mouse.y-mM,mouse.x-mM); //dibujando el ratón
 	ellipse(cheese.y,cheese.x,5,5);
 	//text(mouse.xx+","+mouse.yy,700,10);
 };

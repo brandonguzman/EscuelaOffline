@@ -27,6 +27,8 @@
       padding: 10px;
       display: table;
       margin: 0 auto;
+      color: #7E0D0D;
+      background: #dd5;
     }
     .encabs{
       display: table-cell;
@@ -56,11 +58,16 @@
       text-align: right;
     }
     #tiempo{
-      width: 100px;
+      width: 80px;
       text-align: left;
     }
   </style>
-
+  <audio id="wrong" controls preload="none" style="display: none;"> 
+      <source src="/static/Audio/Varios/wrong.mp3" type="audio/mpeg"></source>
+  </audio>
+  <audio id="correct" controls preload="none" style="display: none;"> 
+      <source src="/static/Audio/Varios/correct.mp3" type="audio/mpeg"></source>
+  </audio>
   <div id="multiple" class="celda">
     <div id="encabezado">
       <div id="time" class="encabs">
@@ -75,7 +82,7 @@
         <p id="numero" class="parraf">No: </p>
       </div>
       <div id="boton" class="encabs">
-        <button id="nuevo" onclick='iniciarJuego()'>Nuevo</button>
+        <button id="nuevo" onclick='inicializar()'>Nuevo</button>
       </div>
     </div>
     <div id="juegomultiselect">
@@ -85,5 +92,7 @@
    <script>
      var diff = $("#dif");
      $("#nivel").appendTo(diff);
+     var wrong = document.getElementById('wrong');
+     var correct = document.getElementById('correct');
    </script>
 {%endblock%}

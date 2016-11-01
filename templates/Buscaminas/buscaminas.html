@@ -61,6 +61,7 @@
 	}
 	#bm_tiempo{
 		text-align: left;
+		width: 80px;
 	}
 	#bm_nivel{
 		text-align: center;
@@ -81,11 +82,13 @@
 	<div style="display: inline-block;">
 		<div id="bm_data" class="j_datos">
 			<div id="bm_tiempo" class="j_dato">00:00:00</div>
-			<div id="bm_nivel" class="j_dato"></div>
-			<div id="bm_nuevo" class="j_dato"><button onclick="crearTablero()">Nuevo</button></div>
+			<div id="bm_nivel" class="j_dato">Nivel: </div>
+			<div id="bm_nuevo" class="j_dato"><button onclick="inicializar()">Nuevo</button></div>
 		</div>
-		<div id="bm0" style="display: none;">
-		<div id="bm"></div>
+		<div id="bm0" style="display: block;">
+		<div id="bm">
+			<img id="portada" src="/static/img/Buscaminas/bm-port.jpg">
+		</div>
 		</div>
 	</div>
 </div>
@@ -97,5 +100,10 @@
 	var div_nivel = document.getElementById("nivel");
 	var div_nivel_j = document.getElementById("bm_nivel");
 	div_nivel_j.appendChild(div_nivel);
+	var portada = document.getElementById('portada');
+	function inicializar(){
+		portada.style.display = 'none';
+		crearTablero();
+	}
 </script>
 {%endblock%}

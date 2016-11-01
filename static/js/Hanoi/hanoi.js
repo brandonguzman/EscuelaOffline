@@ -11,6 +11,8 @@ void setup(){
 
 PImage fondo = loadImage("/static/img/Hanoi/SevillayTorres.png");
 PImage barra = loadImage("/static/img/Hanoi/barra.png");
+PImage portada = loadImage("/static/img/Hanoi/hanoi-p.jpg");
+
 var colorFondo = 210;
 var pila1 = null;
 var pila2 = null;
@@ -77,6 +79,8 @@ draw = function(){
 		dibujarTorres();
 		dibujarDiscos();
 		dibujarTextos();
+	}else{
+		image(portada,0,0,710,400);
 	}
 };
 
@@ -116,9 +120,7 @@ mouseClicked = function(){
 					alerta = "Has Ganado!, pero puedes mejorar.";
 					xAlert = 190;
 				}
-				redraw();
-				iniciado = false;
-				guardarPunteo(500,numMovs,"nivel");
+				guardarPunteo(3000,numMovs,"nivel");
 			}
 		}
 		redraw();
@@ -155,9 +157,15 @@ function dibujarTorres(){
 		fill(240);
 	rect(torre3,topTorre,anchoTorre,altoTorre);
 	image(barra,10,330,690,40);
+	textSize(30);
+	fill(50);
+	text("TORRE 1",60,360);
+	text("TORRE 2",290,360);
+	text("TORRE 3",520,360);
 };
 
 function dibujarDiscos(){
+	textSize(14);
 	for(var t=0; t<TORRES.length; t++){
 	bottom = 310;
 		for(var i=0; i<TORRES[t].length; i++){
@@ -182,7 +190,7 @@ function dibujarTextos(){
 	if( mostrarAlerta ){
 		fill(250); stroke(250);
 		rect(0,180,710,50);
-		fill(200,140,100);
+		fill(100,40,100);
 		textSize(20);
 		text(alerta, xAlert, 210);
 		mostrarAlerta = false;
@@ -244,3 +252,5 @@ function efectoMoverDisco(disco, pA, pB){
 	alert(pA.length+bottom);
 	alert(pB.length+bottom);
 }
+
+window.setTimeout(redraw,200); //para dibujar la portada ya q el draw tiene noLoop();

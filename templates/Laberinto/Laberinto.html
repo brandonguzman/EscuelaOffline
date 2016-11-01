@@ -35,7 +35,8 @@
 		border: 0;
 	}
 	.juego-text-color{
-		color: white;
+		color: #454713;
+		background: skyblue;
 	}
 	#laberinto{
 		height: 433px;
@@ -54,9 +55,12 @@
  	<canvas id="lab-canvas" class="juego-canvas" data-processing-sources="/static/js/Laberintos/Laberinto.js"></canvas>
  </div>
  <div id="ll"></div>
+ <button onclick="mostrarMovimientosAg()">MOSTRAR</button>
+ <div id="movs"></div>
 
  <script>
  	setNivel("lab-nivel"); //añade los niveles a la barra superior
  </script>
+ <script src="/static/js/Laberintos/labs.js"></script>
 
 {%endblock juego%}

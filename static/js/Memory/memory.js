@@ -302,4 +302,5 @@ function Inicializar(idMemory){
   $tiempo = $time;
   $mensaje = $("#msg");
   $errores = $("#iderr");
+  $tablero.append("<img class='img-mem' src='/static/img/Memory/memory_game.png'>");
 }
