@@ -2,7 +2,7 @@
 size(580, 420);
 
 var jugar;
-var nivel;
+var nive = null;
 var crono;
 var tCasilla;
 var casilla;
@@ -29,7 +29,6 @@ var soupPalabras3;
 reiniciaVariables = function(){
 	jugar = false;
 	nivel;
-	crono = null;
 	tCasilla = 31;
 	casilla = new Array(144 - 1);
 	cont = 0;
@@ -59,11 +58,9 @@ eligio = function () {
 	nivel = document.getElementById('nivel').value; 
     jugar = true;
 
-    if( crono ){
+    if( crono )
         crono.kill();
-        crono = false;
-    }
-
+  
     crono = new Cronometro("crono"); 
     crono.iniciar();
 	
@@ -103,6 +100,9 @@ Casilla.prototype.inicio = function(){
 void setup(){
 	Background = new PImage();
 	Background = loadImage("/static/img/AlphabetSoup/background.png");
+
+	pantallaFinJuego = new PImage();
+	pantallaFinJuego = loadImage("/static/img/AlphabetSoup/pantallaFinJuego.png");
 };
 
 creaNivel = function(){
@@ -276,7 +276,7 @@ casillaCorrecto = function(indice){
 //Evento que se activa la precionar el mouse y arrastrarlo
 mouseDragged = function (){
 	for(var i = 0; i < casilla.length; i++)
-		escanCasilla(casilla, i, tCasilla);
+	escanCasilla(casilla, i, tCasilla);
 }
 /*Funcion que detiene el juego, el cronometro y envia la info del cronometro a la DB 
 al haber encontrado las 10 palabras del diccionario*/
@@ -285,10 +285,20 @@ killJuego = function(){
 	if(cont == 10){
 		crono.detener();
 		crono.kill();
-		var tiempo = document.getElementById("crono").innerText;
-		guardarPunteo(3000,tiempo,"nivel",null);
 
-		alert("YOU WIN");
-		jugar = false;
+		//deja la ultima respuesta por 3 segundos antes de mostrar la pantalla de cuanto tiempo duro el juego
+		window.setTimeout(function(){
+			//codigo
+			var tiempo = document.getElementById("crono").innerText;
+			guardarPunteo(7000,tiempo,"nivel",null);
+
+			//Dibuja la imagen de fin del juego con el tiempo que se tardo en resolver.
+			image(pantallaFinJuego, 0, 0);
+			textSize(80);
+			fill(255);
+			text(tiempo, 135, 350);
+
+			jugar = false;
+  		},3000);
 	}
 }

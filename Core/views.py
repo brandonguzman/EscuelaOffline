@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.contrib.auth import login, authenticate
 from GestionUser.forms import UsuarioForm
+from GestionUser.models import Grado, Usuario
 
 class NewUserBase(FormView):
 	"""
@@ -215,3 +216,14 @@ def guardarPunteo(request):
 									  punteoMin=punteo)		
 
 	return redirect(urlback)
+
+
+class Punteos(TemplateView):
+	template_name = "puntuaciones.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(Punteos, self).get_context_data(**kwargs)
+		context["grados"] = Grado.objects.all()
+		context["categorias"] = CategoriaJuego.objects.all()
+		context["juegos"] = Juego.objects.all()
+		return context

@@ -1,4 +1,4 @@
-{%extends 'login.html'%}
+{%extends 'registrar.html'%}
 
 {%block encabezado%}
 	<style type="text/css">
@@ -32,20 +32,24 @@
 			text-align: center;
 			background: rgba(100,100,200,0.2);
 		}
-		form input{
-			background: rgba(255,255,255,0.3);
-			box-sizing: border-box;
-			color: #115;
+		form input, select{
+			background: rgba(255,255,255,0.2);
+			color: white;
 			padding: 5px;
 			border-radius: 5px;
 			margin: 0 auto;
-			margin-bottom: 20px;
-			width: 90%;
-			font-size: 20px;
+			margin-bottom: 15px;
+			width: 80%;
+			font-size: 14px;
+			box-sizing: border-box;
+		}
+		select{
+
 		}
 		form label{
 			color: white;
 			font-size: 20px;
+			display: block;
 		}
 		h2{
 			color: white;
@@ -62,23 +66,29 @@
 			margin: 0px 10px 10px;
 			padding: 5px;
 		}
-		.registrar{
-			color: white;
-			text-align: center;
-			width: 100%;
-			padding-top: 5px;
+		.helptext{
+			display: none;
 		}
 	</style>
 {%endblock%}
 
 {%block body%}
-
 <section id="sectionPrincipal">
-	<h2><div id="nombreJuego">Inicio de sesión</div></h2>
-	<form method="post">{%csrf_token%}
-		{{form.as_p}}
-		<input type="submit" name="Ingresar" value="Ingresar">
-	</form>
-	<p class="registrar"><a class="registrar" href="/crear/">Registrarse</a></p>
+	<h2><div id="nombreJuego">Puntuaciones</div></h2>
+	<select>
+		{%for g in grados%}
+			<option>{{g}}</option>
+		{%endfor%}
+	</select>
+	<select>
+		{%for c in categorias%}
+			<option>{{c}}</option>
+		{%endfor%}
+	</select>
+	<select>
+		{%for j in juegos%}
+			<option>{{j}}</option>
+		{%endfor%}
+	</select>
 </section>
 {%endblock%}

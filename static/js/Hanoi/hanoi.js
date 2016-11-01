@@ -9,6 +9,8 @@ void setup(){
 	//iniciar();
 };
 
+PImage fondo = loadImage("/static/img/Hanoi/SevillayTorres.png");
+PImage barra = loadImage("/static/img/Hanoi/barra.png");
 var colorFondo = 210;
 var pila1 = null;
 var pila2 = null;
@@ -17,7 +19,7 @@ var numDiscos = 3;
 var torre1 = 120;
 var torre2 = 350;
 var torre3 = 580;
-var topTorre = 50;
+var topTorre = 65;
 var altoTorre = 300;
 var anchoTorre = 10;
 var pilaA = null;
@@ -43,6 +45,7 @@ var espaciado = 25; //espaciado entre discos
 var iniciado = false;
 //indica en cuantos movimientos puede resolverse el juego
 var minMovs = 0;
+var bottom = 310; //la parte más baja en y para empezar a dibujar las torres
 
 function Disco(id){
 	this.id = id;
@@ -70,6 +73,7 @@ iniciar = function(){
 draw = function(){
 	if( iniciado ){
 		background(colorFondo);
+		image(fondo,0,0,710,400);
 		dibujarTorres();
 		dibujarDiscos();
 		dibujarTextos();
@@ -137,41 +141,44 @@ function efectoSeleccionarTorre(idTorre){
 };
 //dibuja las torres, y cambia de color la que se seleccione
 function dibujarTorres(){
-	fill(130);
-	rect(10,330,690,20); //dibuja la base de las torres
-	fill(200);
+	fill(130,100,150);
+	//rect(10,330,690,20); //dibuja la base de las torres
 	if( select1 )
 		fill(240);
 	rect(torre1,topTorre,anchoTorre,altoTorre);
-	fill(200);
+	fill(130,100,150);
 	if( select2 )
 		fill(240);
 	rect(torre2,topTorre,anchoTorre,altoTorre);
-	fill(200);
+	fill(130,100,150);
 	if( select3 )
 		fill(240);
 	rect(torre3,topTorre,anchoTorre,altoTorre);
+	image(barra,10,330,690,40);
 };
 
 function dibujarDiscos(){
 	for(var t=0; t<TORRES.length; t++){
-		var bottom = 300;
+	bottom = 310;
 		for(var i=0; i<TORRES[t].length; i++){
 			fill(180);
 			var tam = TORRES[t][i].tam;
-			rect((XTorre[t]+anchoTorre/2)-(tam/2),bottom,tam,20);
-			fill(20,20,100);
-			text(TORRES[t][i].id,XTorre[t],bottom+15);
+			//fill(200,100,50+(TORRES[t][i].id*10));
+			selectColorForDisco(TORRES[t][i].id-1);
+			//rect((XTorre[t]+anchoTorre/2)-(tam/2),bottom,tam,20);
+			ellipse((XTorre[t]+anchoTorre/2),bottom,tam,20);
+			fill(255);
+			text(TORRES[t][i].id,XTorre[t],bottom+5);
 			bottom -= espaciado;
 		}
 	}
 }
 
 function dibujarTextos(){
-	fill(100,100,150);
-	textSize(16);
-	text("Número de Movimientos: "+numMovs, 30,20);
-	text("Se puede resolver en "+(minMovs)+" movimientos.", 400,20);
+	fill(50,50,150);
+	textSize(18);
+	text("Número de Movimientos: "+numMovs, 20,20);
+	text("Se puede resolver en "+(minMovs)+" movimientos.", 300,20);
 	if( mostrarAlerta ){
 		fill(250); stroke(250);
 		rect(0,180,710,50);
@@ -180,6 +187,30 @@ function dibujarTextos(){
 		text(alerta, xAlert, 210);
 		mostrarAlerta = false;
 		stroke(0);
+	}
+}
+
+function selectColorForDisco(num){
+	if( num == 0 ){
+		fill(0,0,255);
+	}else if( num == 1 ){
+		fill(0,235,0);
+	}else if( num == 2 ){
+		fill(255,0,0);
+	}else if( num == 3 ){
+		fill(100,100,100);
+	}else if( num == 4 ){
+		fill(50,100,50);
+	}else if( num == 5 ){
+		fill(150,100,150);
+	}else if( num == 6 ){
+		fill(100,200,100);
+	}else if( num == 7 ){
+		fill(100,0,100);
+	}else if( num == 8 ){
+		fill(0,100,0);
+	}else if( num == 9 ){
+		fill(100,150,150);
 	}
 }
 
@@ -206,4 +237,10 @@ function setTamDiscos(){
 
 function seleccionarNivel(){
 	numDiscos = document.getElementById('nivel').value-30;
+}
+
+var iii = 0;
+function efectoMoverDisco(disco, pA, pB){
+	alert(pA.length+bottom);
+	alert(pB.length+bottom);
 }
