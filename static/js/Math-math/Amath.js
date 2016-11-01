@@ -24,8 +24,7 @@ var mostrarAlerta = false;
 var movido = false;
 
 // cargo la imagen de la nube
-nube = new PImage(); 
-nube = loadImage("/static/img/Math-math/nube.png");
+
 
 void setup(){
 	//ancho y alto del lienzo
@@ -35,6 +34,12 @@ void setup(){
 	fondo = loadImage("/static/img/Math-math/fondo.png");
 	pizarra = new PImage();
 	pizarra = loadImage("/static/img/Math-math/pizarra.jpg");
+	nube = new PImage(); 
+	nube = loadImage("/static/img/Math-math/nube.png");
+	check = new PImage(); 
+	check = loadImage("/static/img/Math-math/check.png");
+	mala = new PImage(); 
+	mala = loadImage("/static/img/Math-math/mala.png");
 	
 }
 
@@ -52,6 +57,7 @@ eligio = function () {
     // se inicializan las variables
     termino = 10; 
     reinicio();
+
     // se llama a la funcion que contiene la creacion de todos los objetos               
 }
 
@@ -64,7 +70,9 @@ reinicio = function(){
     r = 0;
     num2 = [];
     cont = 0;
+
     clickDibuja();
+ 
 }
 
 function dibujarTextos(){
@@ -97,16 +105,17 @@ nubes.prototype.dibuja = function() {
 	text(this.text,this.x + 20 ,this.y + 40);
 };
 // constructor para crear los objetos de tipo texto los operandos.
-function texto(text,tipo,x,y,size){
+function texto(text,tipo,x,y,size,color){
 	this.text = text;
 	this.tipo = tipo;
 	this.x = x;
 	this.y = y;
 	this.size = size;
+	this.color = color;
 }
 // metodo para dibujar el los objetos de texto
 texto.prototype.dibuja = function(){
-	fill(255);
+	fill(this.color);
 	textSize(this.size);
 	text(this.text,this.x,this.y);
 };
@@ -115,7 +124,7 @@ texto.prototype.click = function(x,y,objeto){
 	if (x > this.x  & x < this.x + 25 & y > this.y - 23 & y < this.y ) {
 		// al hacer click en los objetos se accede a la propiedad de tamano hace el efecto de crecer 
 		// el texto seleccionaldo.
-		objeto.size = 35;
+		objeto.size = 30;
 		 /*se guarda la pocision donde se le dio click inicial al objeto
 		 solo para hacer el efecto de que si ya hay algo en la nube
 		 regresa al su pocision */
@@ -147,7 +156,7 @@ for (var i = 0; i < num.length; i++) {
 	}else if (i == 7) {
 		x2 +=55; y2 =y2;
 	}
-		vec[i] = new texto(num[i],num[i],x2,y2,27);
+		vec[i] = new texto(num[i],num[i],x2,y2,27,255);
 	}
 };
 
@@ -265,6 +274,7 @@ draw = function () {
 	image(fondo,0,0,anchoL,altoL);
 	image(pizarra,160,250,360,160);
 
+
 	// se dibujan todos las nubes.
 	for (var i = 0; i < ima.length; i++) {
 		ima[i].dibuja();
@@ -295,19 +305,34 @@ draw = function () {
 			 	//reprodusco el sonido de muybien
 			 	var v = document.getElementById("exito");
        			v.play();
+       			image(check,400,30,70,60);
+       			jugar = false;
+       			window.setTimeout(function(){
        			//reinicio las variables para generar otra operacion 
-       			reinicio();
+       				reinicio();
+       				jugar = true;
+       			},2000);
+       			
+       			
 			 }else{
 			 	// si no es correcta la operacion reinicia la variables y emite sonido de error.
-			 	reinicio();
 			 	var v = document.getElementById("error");
        			v.play();
+       			image(mala,400,30,70,60);
+       			jugar = false;
+			 	window.setTimeout(function(){
+       				//reinicio las variables para generar otra operacion 
+       				reinicio();
+       				jugar = true;
+       			},2000);
+			 	
 			 }
 		}
 	}
 };
 // se activa esta funcion cuando se le hace click en los objetos
 void mouseClicked(){
+
 // activa el evento dragged para arrastrar
 	draged = true;
 	for (var i = 0; i < num2.length; i++) {
@@ -324,22 +349,26 @@ arrastra = function(objeto){
 			//se arrastra en la pocision x Y y del mouse.
 			objeto.x = mouseX;
 			objeto.y = mouseY;
-				
-		
+			objeto.size = 34;
+
+			//cuando se llega a las nubes se pone el color negro
+			for (var i = 0; i < ima.length; i++) {
+				if (objeto.x >= ima[i].x & objeto.x <= ima[i].x + 55 & objeto.y >= ima[i].y & objeto.y <= ima[i].y + 70 ) {
+					objeto.color = 0;	
+				}
+			}
 		}
 	}
-	
 
-
-mouseReleased = function() {
+mouseReleased = function() {		
 			//se recorre el vector de objetos de nubes.
 		for (var i = 0; i < ima.length; i++) {
 			// se verifica a que objeto de tipo nube se arrastrar el numero.
-			if (objeto.x >= ima[i].x & objeto.x <= ima[i].x + 55 & objeto.y >= ima[i].y & objeto.y <= ima[i].y + 50 ) {
+			if (objeto.x >= ima[i].x & objeto.x <= ima[i].x + 55 & objeto.y >= ima[i].y & objeto.y <= ima[i].y + 70 ) {
+					
+				movido = true;
 					//se verifica si la nube no tiene nada.
-					movido = true;
-					if (ima[i].text == "") {
-
+					if (ima[i].text == "" & objeto.text != "" | ima[i].text == "" & objeto.text == "0" ) {
 						//a esa nube se le asigna el objeto que vamos arrastrando.
 						ima[i].text = objeto.tipo;
 						//el objeto que vamos arrastrando le pasamos vacio para hacer el efecto que desaparece.
@@ -348,20 +377,24 @@ mouseReleased = function() {
 						cont -=1;
 						//regresamos el draged a false cuando agamos click en otro numero se vuelve activar.
 						draged = false;
+						
 					}else{
 						//si ya hay algo dentro de la nube que arrastramos, regresa a su lugar y su tamaño.
 						objeto.x = posX;
 						objeto.y = posY;
-						objeto.size = 30;
+						objeto.size = 27;
+						objeto.color = 255;
 						}
 				}	
 			}
+				// si sueltan fuera de las nubes regresa al numero a su lugar.
 				if (movido) {
 					movido = false;
 				}else{
 					objeto.x = posX;
 					objeto.y = posY;
-					objeto.size = 30;
+					objeto.size = 27;
+					objeto.color = 255;
 				}
 	}
 };
