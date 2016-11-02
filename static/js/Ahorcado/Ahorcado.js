@@ -1,4 +1,14 @@
-size(650, 500);
+void setup(){
+	size(650, 500);
+	fondo = new PImage();
+	fondo = loadImage("/static/img/ahorcado/fondo.jpg");
+	fin = new PImage();
+	fin = loadImage("/static/img/ahorcado/fin.png");
+	fondo2 = new PImage();
+	fondo2 = loadImage("/static/img/ahorcado/fondo2.gif");
+	feliz = new PImage();
+	feliz = loadImage("/static/img/ahorcado/feliz.png");
+}
 // variables globales para los objetos
 var ejeX = 70;
 var ejeY = 300;
@@ -11,6 +21,9 @@ var nivel;
 var genera;
 var abecedario = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 var abc = new Array(26);
+var alerta = "";
+var xAlert = 0;
+var mostrarAlerta = false;
 
 
 eligio = function () {
@@ -44,8 +57,8 @@ var puntuacion = function(nivel,NoIntentos,punteo){
 }; 
 
 puntuacion.prototype.dibuja = function(){
-	 fill(255,4,4);
-    textSize(17);
+	 fill(0);
+    textSize(25);
     text("Nivel:"+this.nivel+ "    " +"No. Intentos:"+this.NoIntentos+"   "+"Punteo:"+this.punteo,10,20);
 };
 
@@ -156,6 +169,21 @@ ahorcado.prototype.ojos = function(){
 	line(this.x + 425 ,this.y + 23 ,this.x + 430,this.y + 30);
 	line(this.x + 430 ,this.y + 23 ,this.x + 425,this.y + 30);
 };
+
+function dibujarTextos(img){
+	fill(100,100,150);
+	textSize(16);
+	if( mostrarAlerta ){
+		image(img,0,0,650,503);
+		fill(250,142,242); stroke(250);
+		rect(0,180,710,50);
+		fill(0);
+		textSize(20);
+		text(alerta, xAlert, 210);
+		mostrarAlerta = false;
+		stroke(0);
+	}
+}
 // funcion para crear todos los objetos
 creaobjeto = function(X, Y){
 	for (var i = 0; i <= 25 ; i++) {
@@ -186,7 +214,7 @@ creaobjeto = function(X, Y){
 	gene = true;
 	genera = new palabras();
 	punteo = new puntuacion(nivel,7,0);
-	ahorca = new ahorcado(100,100);
+	ahorca = new ahorcado(100,50);
 
 };
 
@@ -194,18 +222,29 @@ creaobjeto = function(X, Y){
 
 draw = function(){
 	if (jugar) {
-	background(146,244,239);
+	image(fondo,0,0,650,500);
 	teclado();
 	punteo.dibuja();
 
 
-
+	// se genera una nueva palabra
 	if (gene) {
         genera.generar(nivel);
         gene = false;          
     } 
+    //se comprueba si la palabra que se va formando es igual a la que se eligio de las palabras.
     if (miVar == genera.elegida) {
-    	alert("correcta Felicidades");
+    	genera.pregunta = "";
+    	mostrarAlerta =true;
+		alerta =" Correcto llevas "+punteo.punteo+" Puntos"; //texto mostrado como alerta
+		xAlert =200;
+		dibujarTextos(feliz);
+
+    	jugar = false;
+    	window.setTimeout(function(){
+       		jugar = true;
+       		},2000);
+
     	punteo.NoIntentos = 7;
 	 	genera.cont += 1;
 	 	gene = true;
@@ -252,7 +291,17 @@ draw = function(){
         	ahorca.ojos();
         	ahorca.piernas();
 
-        	alert("Has perdido la correcta es:"+" "+ genera.elegida);
+        	// se compara cuando se llega a cero es que se ahorco
+        	genera.pregunta = "";
+    		mostrarAlerta =true;
+			alerta ="Incorrecto la palabra correcta era: "+genera.elegida; //texto mostrado como alerta
+			xAlert =150;
+			dibujarTextos(fondo2);
+    		jugar = false;
+    		window.setTimeout(function(){
+       			jugar = true;
+       		},2000);
+
         	punteo.NoIntentos = 7;
         	punteo.punteo = 0;
         	genera.cont += 1;
@@ -260,21 +309,38 @@ draw = function(){
         }
 
 	 fill(0);
-	 textSize(28);
+	 textSize(30);
      text(genera.pregunta,20,200);
 
 
       if (genera.cont == genera.palabras.length) {
-      		 alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
-            guardarPunteo(1000,punteo.punteo,"nivel",null);
+      		mostrarAlerta =true;
+			alerta ="Has terminado la Partida con: "+punteo.punteo+" puntos"; //texto mostrado como alerta
+			xAlert =150;
+			dibujarTextos(fin);
+			jugar = false;
+            guardarPunteo(3000,punteo.punteo,"nivel",null);
+            jugar = false;
+            
         }
     if (genera.cont == genera.palabras2.length) {
-    		 alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
-            guardarPunteo(1000,punteo.punteo,"nivel",null);
+    		mostrarAlerta =true;
+			alerta ="Has terminado la Partida con: "+punteo.punteo+" puntos"; //texto mostrado como alerta
+			xAlert =150;
+			dibujarTextos(fin);
+			jugar = false;
+            guardarPunteo(3000,punteo.punteo,"nivel",null);
+            jugar = false;   
         }
      if (genera.cont == genera.palabras3.length) {
-     		 alert("Has terminado"+" "+"Punteo:"+" "+punteo.punteo);
-            guardarPunteo(1000,punteo.punteo,"nivel",null);
+     		mostrarAlerta =true;
+			alerta ="Has terminado la Partida con: "+punteo.punteo+" puntos"; //texto mostrado como alerta
+			xAlert =150;
+			dibujarTextos(fin);
+			jugar = false;
+            guardarPunteo(3000,punteo.punteo,"nivel",null);
+            jugar = false;
+            
         }    
  }
 };
@@ -284,15 +350,16 @@ teclado = function(){
 	for (var i = 0; i <= 25; i++) {
 		abc[i].dibuja();
 	}
-
 };
 
 // evento mouse click para comprobar los click en los objetos
-void mouseClicked() {
-	for (var i = 0; i <= 25; i++) {
-		abc[i].click(mouseX,mouseY,abc[i]);
+	mouseClicked = function() {
+		for (var i = 0; i <= 25; i++) {
+			abc[i].click(mouseX,mouseY,abc[i]);
+		}
 	}
 
-};
+
+
 
 

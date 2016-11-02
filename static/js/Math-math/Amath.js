@@ -32,6 +32,10 @@ void setup(){
 	//se cargan las imagenes de fondo
 	fondo = new PImage();
 	fondo = loadImage("/static/img/Math-math/fondo.png");
+	fondo2 = new PImage();
+	fondo2 = loadImage("/static/img/Math-math/fondo2.png");
+	fondo3 = new PImage();
+	fondo3 = loadImage("/static/img/Math-math/fondo3.png");
 	pizarra = new PImage();
 	pizarra = loadImage("/static/img/Math-math/pizarra.jpg");
 	nube = new PImage(); 
@@ -40,6 +44,8 @@ void setup(){
 	check = loadImage("/static/img/Math-math/check.png");
 	mala = new PImage(); 
 	mala = loadImage("/static/img/Math-math/mala.png");
+	fin = new PImage(); 
+	fin = loadImage("/static/img/Math-math/fin.png");
 	
 }
 
@@ -63,25 +69,24 @@ eligio = function () {
 
 reinicio = function(){
 	x = 30; y = 30;
-    x2 = 190; y2 =330;
+    x2 = 190; y2 =260;
     num = [];
     ima = [];
     preg = [];
     r = 0;
     num2 = [];
     cont = 0;
-
     clickDibuja();
- 
 }
 
 function dibujarTextos(){
 	fill(100,100,150);
 	textSize(16);
 	if( mostrarAlerta ){
-		fill(250); stroke(250);
+		image(fin,0,0,anchoL,altoL);
+		fill(250,142,242); stroke(250);
 		rect(0,180,710,50);
-		fill(200,140,100);
+		fill(0);
 		textSize(20);
 		text(alerta, xAlert, 210);
 		mostrarAlerta = false;
@@ -90,16 +95,18 @@ function dibujarTextos(){
 }
 
 // constructor para crear los objetos nube
-function nubes(imagen,text,x,y,tamaño){
+function nubes(imagen,text,x,y,an,lar){
 	this.imagen = imagen;
 	this.text = text;
 	this.x = x;
 	this.y = y;
-	this.tamaño = tamaño;
+	this.an = an;
+	this.lar = lar;
+
 }
 // metodo para dibujar las nubes
 nubes.prototype.dibuja = function() {
-	image(this.imagen,this.x,this.y,this.tamaño,this.tamaño);
+	image(this.imagen,this.x,this.y,this.an,this.lar);
 	fill(0);
 	textSize(25);
 	text(this.text,this.x + 20 ,this.y + 40);
@@ -124,7 +131,7 @@ texto.prototype.click = function(x,y,objeto){
 	if (x > this.x  & x < this.x + 25 & y > this.y - 23 & y < this.y ) {
 		// al hacer click en los objetos se accede a la propiedad de tamano hace el efecto de crecer 
 		// el texto seleccionaldo.
-		objeto.size = 30;
+		objeto.size = 27;
 		 /*se guarda la pocision donde se le dio click inicial al objeto
 		 solo para hacer el efecto de que si ya hay algo en la nube
 		 regresa al su pocision */
@@ -142,21 +149,21 @@ for (var i = 0; i < num.length; i++) {
 	if (i == 0) {
 		x2 = x2; y2 =y2;	
 	}else if (i == 1) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}	
 	}else if (i == 2) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}
 	}else if (i == 3) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}
 	}else if (i == 4) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}
 	}else if (i == 5) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}
 	}else if (i == 6) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}
 	}else if (i == 7) {
-		x2 +=55; y2 =y2;
+		if (nivel == 2 | nivel == 3) {x2 +=80; y2 =y2;}else{x2 +=55; y2 =y2;}
 	}
-		vec[i] = new texto(num[i],num[i],x2,y2,27,255);
+		vec[i] = new texto(num[i],num[i],x2,y2,25,255);
 	}
 };
 
@@ -184,15 +191,15 @@ creaObjetoNubes = function(vec){
 		//se crean los objetos de tipo nube y dependiendo los signos de las operaciones
 		// se le pasan todos todos los signos.
 		if (preg[i] == "+" ) {
-			vec[i] = new nubes(nube,"+",x,y,tamaño);
+			vec[i] = new nubes(nube,"+",x,y,tamaño,tamaño);
 		}else if (preg[i] == "-") {
-			vec[i] = new nubes(nube,"-",x,y,tamaño);
+			vec[i] = new nubes(nube,"-",x,y,tamaño,tamaño);
 		}else if (preg[i] == "*") {
-			vec[i] = new nubes(nube,"*",x,y,tamaño);
+			vec[i] = new nubes(nube,"*",x,y,tamaño,tamaño);
 		}else if (preg[i] == "/") {
-			vec[i] = new nubes(nube,"/",x,y,tamaño);
+			vec[i] = new nubes(nube,"/",x,y,tamaño,tamaño);
 		}else if (preg[i] == "=") {
-			vec[i] = new nubes(nube,"=",x,y,tamaño);
+			vec[i] = new nubes(nube,"=",x,y,tamaño,tamaño);
 		}else{ 
 			// la respuesta la convierte en flotante para las diviciones
 			if (i <preg.length) {
@@ -203,7 +210,7 @@ creaObjetoNubes = function(vec){
 			}
 			//guarda los numeros en el vector num donde van guardados todos los numeros.
 			num.push(t);
-			vec[i] = new nubes(nube,"",x,y,tamaño);
+			vec[i] = new nubes(nube,"",x,y,tamaño,tamaño);
 		}		
 	}
 };
@@ -270,10 +277,17 @@ clickDibuja = function(){
 // funcion draw que se pasa redibujando todo.
 draw = function () {
 	if (jugar) {
-	// se dibuja el fondo y la pizarra.
-	image(fondo,0,0,anchoL,altoL);
-	image(pizarra,160,250,360,160);
-
+	// se dibuja el fondo y la pizarra de pendiendo el contador cambia de imagen.
+	if (termino == 10 | termino == 9 | termino == 4 | termino == 3) {
+		image(fondo,0,0,anchoL,altoL);
+		image(pizarra,150,150,395,190);
+	}else if (termino == 8 |termino ==7 | termino ==2) {
+		image(fondo2,0,0,anchoL,altoL);
+		image(pizarra,150,150,395,190);
+	}else if (termino == 6 | termino == 5 | termino ==1) {
+		image(fondo3,0,0,anchoL,altoL);
+		image(pizarra,150,150,395,190);
+	}
 
 	// se dibujan todos las nubes.
 	for (var i = 0; i < ima.length; i++) {
@@ -281,14 +295,14 @@ draw = function () {
 	}
 
 	for (var i = 0; i < num2.length; i++) {
-		num2[i].dibuja();
+			num2[i].dibuja();
 	}
 		//aqui guardo el tiempo total en hacer las operaciones.
 		if (termino == 0) {
 			crono.detener();
 			var tiempo = document.getElementById("crono").innerText;
 			mostrarAlerta =true;
-			alerta ="Has Terminado la Partida en: "+tiempo; //texto mostrado como alerta
+			alerta ="Has terminado la Partida en: "+tiempo; //texto mostrado como alerta
 			xAlert =150;
 			dibujarTextos();
 			guardarPunteo(3000,tiempo,"nivel",null);
@@ -305,7 +319,7 @@ draw = function () {
 			 	//reprodusco el sonido de muybien
 			 	var v = document.getElementById("exito");
        			v.play();
-       			image(check,400,30,70,60);
+       			image(check,300,220,70,60);
        			jugar = false;
        			window.setTimeout(function(){
        			//reinicio las variables para generar otra operacion 
@@ -318,7 +332,7 @@ draw = function () {
 			 	// si no es correcta la operacion reinicia la variables y emite sonido de error.
 			 	var v = document.getElementById("error");
        			v.play();
-       			image(mala,400,30,70,60);
+       			image(mala,300,220,70,60);
        			jugar = false;
 			 	window.setTimeout(function(){
        				//reinicio las variables para generar otra operacion 
@@ -349,7 +363,7 @@ arrastra = function(objeto){
 			//se arrastra en la pocision x Y y del mouse.
 			objeto.x = mouseX;
 			objeto.y = mouseY;
-			objeto.size = 34;
+			objeto.size = 27;
 
 			//cuando se llega a las nubes se pone el color negro
 			for (var i = 0; i < ima.length; i++) {
@@ -357,6 +371,13 @@ arrastra = function(objeto){
 					objeto.color = 0;	
 				}
 			}
+			//solamente si se sale del lienzo canvas
+			if (objeto.x >610) {
+				objeto.x = 610;
+			}else if (objeto.y < 30) {
+				objeto.y = 30;
+			}
+
 		}
 	}
 
@@ -377,6 +398,17 @@ mouseReleased = function() {
 						cont -=1;
 						//regresamos el draged a false cuando agamos click en otro numero se vuelve activar.
 						draged = false;
+						// se comprueba lo que se arrastra es flotante crese la nube
+						if (ima[i] != "") {
+							if (objeto.tipo % 1 !=0) {
+								ima[i].an = tamaño + 40;
+								//se incrementa la x de las nubes siguiente si las hay.
+								for (var j = i; j < ima.length; j++) {
+									ima[j + 1 ].x += 30;
+								}	
+						    }
+						}
+						
 						
 					}else{
 						//si ya hay algo dentro de la nube que arrastramos, regresa a su lugar y su tamaño.
@@ -408,11 +440,17 @@ verificaOp = function(ima){
 		if (ima[i].text == "/" & ima[i + 2].text == "*") {
 			res = ima[i - 1].text / ima[i+1].text;
 			r = res * ima[i + 3].text;
+			if (r % 1 !=0) {
+				r = r.toFixed(2);
+			}
 			return r;
 		//si se encuentra una multipllicacion y division operamos en ese orden.
 		}else if (ima[i].text == "*" & ima[i + 2].text == "/") {
 			res = ima[i - 1].text * ima[i+1].text;
 			r = res / ima[i + 3].text;
+			if (r % 1 !=0) {
+				r = r.toFixed(2);	
+			}
 			return r;
 			//si se encuentra un suma y una resta se opera en ese orden.
 		}else if (ima[i].text == "+" & ima[i + 2].text == "-") {
@@ -439,9 +477,10 @@ verificaOp = function(ima){
 			//si solo se encuentra una division se opera.
 		}else if (ima[i].text == "/") {
 			r = ima[i-1].text / ima[i+1].text;
+			if (r % 1 !=0) {
+				r = r.toFixed(2);
+			}
 			return r;
-		}
-		
-	}
-	
+		}	
+	}	
 };
