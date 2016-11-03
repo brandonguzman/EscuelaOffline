@@ -58,10 +58,10 @@ var puntuacion = function(nivel,NoIntentos,punteo){
 
 puntuacion.prototype.dibuja = function(){
 	fill(28,3,250);
-    textSize(25);
     rect(0,0,650,30);
     fill(255);
-    text("Level:"+this.nivel+ "    " +"No. Attempts:"+this.NoIntentos+"   "+"points:"+this.punteo,100,20);
+    textSize(25);
+    text("Level:"+this.nivel+ "    " +"No. Attempts:"+this.NoIntentos+"   "+"points:"+this.punteo,120,20);
 };
 
 fichas.prototype.dibuja = function(){

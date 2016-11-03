@@ -1,5 +1,5 @@
 // tamaño del lienzo
-  size(650, 500); 
+   
 // declarando variables globales 
 var carro1;
 var nube1;
@@ -8,7 +8,7 @@ var sol;
 var punteo;
 var calle;  
 var pocisionX = [800,800,800];
-var pocisionY = [300,365,425];
+var pocisionY = [340,405,460];
 var ficha1;
 var ficha2;
 var ficha3;
@@ -21,6 +21,15 @@ var cont = 10;
 var alerta = "";
 var xAlert = 0;
 var mostrarAlerta = false;
+
+void setup(){
+size(650, 500);
+fondo = new PImage();
+fondo = loadImage("/static/img/carrito/fondo.png");
+fin = new PImage();
+fin = loadImage("/static/img/carrito/fin.jpg");
+
+}
 
 // funcion para iniciar el juego seleccionando un nivel
 eligio = function () {
@@ -77,10 +86,11 @@ var puntuacion = function(nivel,NoErrores,NoAsiertos,punteo){
 
 // metodo para dibujar la puntuacion
 puntuacion.prototype.escribe = function(){
-    
-    fill(255,4,4);
-    textSize(15);
-    text("Nivel:"+this.nivel+ "    "+ "No. Errores:"+ this.NoErrores+ "    "+ " No. Asiertos:"+this.NoAsiertos+"    "+" Punteo:"+this.punteo,10,20);
+    fill(28,3,250);
+    rect(0,0,650,30);
+    fill(255);
+    textSize(20);
+    text("Nivel:"+this.nivel+ "    "+ "No. Errores:"+ this.NoErrores+ "    "+ " No. Asiertos:"+this.NoAsiertos+"    "+" Punteo:"+this.punteo,100,20);
     
     };
 
@@ -128,16 +138,21 @@ sol.prototype.triste = function(){
 };
 // metodo para dinujar las fichas
 fichas.prototype.dib = function(nivel){
-    
-    if (nivel == 2) {
-        nivel = nivel - 0.5;
-    }else if (nivel == 3) {
-        nivel = nivel - 1.5;
-    }
-
     noStroke();
     fill(255,255,255);
-    ellipse(this.fichaX, this.fichaY, 55,45); 
+    if (nivel ==1) {
+        ellipse(this.fichaX, this.fichaY, 55,45); 
+    }else if (nivel ==2) {
+        ellipse(this.fichaX, this.fichaY, 70,45); 
+    }else if (nivel ==3) {
+        ellipse(this.fichaX, this.fichaY, 70,45); 
+    }
+
+    if (nivel == 2) {
+        nivel = nivel - 1;
+    }else if (nivel == 3) {
+        nivel = nivel - 2;
+    } 
 
     if (this.fichaX < 0) {
         this.fichaX = 800;
@@ -149,8 +164,8 @@ fichas.prototype.dib = function(nivel){
 // metodo para escribir las respuestas en las fichas
 fichas.prototype.texto = function(texto){
     fill(0);
-    textSize(12);
-    text(texto,this.fichaX - 6 ,this.fichaY);
+    textSize(20);
+    text(texto,this.fichaX - 15 ,this.fichaY);
 
 };
 
@@ -159,14 +174,17 @@ fichas.prototype.texto = function(texto){
 nubes.prototype.dibuja = function(){
     noStroke();
     fill(255, 255, 255);
-    ellipse(this.nubeX, this.nubeY, this.ancho + 56,this.alto + 37);
-    ellipse(this.nubeX+62, this.nubeY, this.ancho, this.alto);
-    ellipse(this.nubeX-62, this.nubeY, this.ancho, this.alto);
+    
+        ellipse(this.nubeX, this.nubeY, this.ancho + 56,this.alto + 37);
+        ellipse(this.nubeX+62, this.nubeY, this.ancho, this.alto);
+        ellipse(this.nubeX-62, this.nubeY, this.ancho, this.alto);  
+    
+    
 
     if(this.nubeX == - 90){
-    this.nubeX = 700;
+        this.nubeX = 700;
     }else{   
-    this.nubeX -= 0.5;
+        this.nubeX -= 0.5;
     }
 
 };
@@ -184,11 +202,11 @@ carro.prototype.dibujar = function() {
     fill(255,255,255);
     rect(this.x+ 60, this.y - 10 ,10,10);
 };
-        carro1  = new carro(10,300);
+        carro1  = new carro(10,340);
         nube1 = new nubes(300,150,70,60);
         nube2 = new nubes(200,50,50,30);
-        sol = new sol(500,100);
-        calle = new calle(0,300);  
+        sol = new sol(530,80);
+        calle = new calle(0,340);  
         
 
     // creando intancias del los objetos.
@@ -205,8 +223,8 @@ carro.prototype.dibujar = function() {
 // funcion draw para redibujar los objetos
  draw = function(){
     if (jugar){
-         noStroke();
-         background(151, 244, 247);
+        noStroke();
+        image(fondo,0,0,650,500);
 // dibujando los objetos
         calle.dibuja();
          if (aux == 1) {
@@ -272,15 +290,12 @@ carro.prototype.dibujar = function() {
         
     
     fill(0);
-    textSize(16);
-    text("Choque con la respuesta correcta para completar la oracion.", 10,490);
-    text("▲"+ " "+"Arriba",500,480);
-    text("▼"+ " "+"Abajo",500,495);
+    textSize(20);
 
     // genera la pregunta hasta que aparecen las fichas.
     if (ficha1.fichaX <= 650 & ficha2.fichaX <= 650 & ficha2.fichaX <= 650) {
 
-        text(genera.pregunta+" "+"=",20,100); 
+        text("Resulve la operación: "+genera.pregunta+" "+"=",20,100); 
     }
 
    
@@ -328,11 +343,12 @@ carro.prototype.dibujar = function() {
     fill(100,100,150);
     textSize(16);
     if( mostrarAlerta ){
-        fill(250); stroke(250);
-        rect(0,180,710,50);
-        fill(200,140,100);
+        image(fin,0,0,650,500);
+        fill(250,142,242); stroke(250);
+        rect(0,240,710,50);
+        fill(0);
         textSize(20);
-        text(alerta, xAlert, 210);
+        text(alerta, xAlert, 270);
         mostrarAlerta = false;
         stroke(0);
     }
