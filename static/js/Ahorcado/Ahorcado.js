@@ -57,9 +57,11 @@ var puntuacion = function(nivel,NoIntentos,punteo){
 }; 
 
 puntuacion.prototype.dibuja = function(){
-	 fill(0);
+	fill(28,3,250);
     textSize(25);
-    text("Nivel:"+this.nivel+ "    " +"No. Intentos:"+this.NoIntentos+"   "+"Punteo:"+this.punteo,10,20);
+    rect(0,0,650,30);
+    fill(255);
+    text("Level:"+this.nivel+ "    " +"No. Attempts:"+this.NoIntentos+"   "+"points:"+this.punteo,100,20);
 };
 
 fichas.prototype.dibuja = function(){
@@ -236,14 +238,14 @@ draw = function(){
     if (miVar == genera.elegida) {
     	genera.pregunta = "";
     	mostrarAlerta =true;
-		alerta =" Correcto llevas "+punteo.punteo+" Puntos"; //texto mostrado como alerta
+		alerta = genera.elegida+" !!Correcto llevas "+punteo.punteo+" Puntos!!"; //texto mostrado como alerta
 		xAlert =200;
 		dibujarTextos(feliz);
 
     	jugar = false;
     	window.setTimeout(function(){
        		jugar = true;
-       		},2000);
+       		},3000);
 
     	punteo.NoIntentos = 7;
 	 	genera.cont += 1;
@@ -297,10 +299,18 @@ draw = function(){
 			alerta ="Incorrecto la palabra correcta era: "+genera.elegida; //texto mostrado como alerta
 			xAlert =150;
 			dibujarTextos(fondo2);
+			ahorca.palo();
+        	ahorca.palo2();
+        	ahorca.lazo();
+        	ahorca.cabeza();
+        	ahorca.cuerpo();
+        	ahorca.brazos();
+        	ahorca.ojos();
+        	ahorca.piernas();
     		jugar = false;
     		window.setTimeout(function(){
        			jugar = true;
-       		},2000);
+       		},3000);
 
         	punteo.NoIntentos = 7;
         	punteo.punteo = 0;
@@ -308,8 +318,9 @@ draw = function(){
         	gene = true;
         }
 
-	 fill(0);
+	 fill(250,254,4);
 	 textSize(30);
+	 strokeWeight(2);
      text(genera.pregunta,20,200);
 
 
