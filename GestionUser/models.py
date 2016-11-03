@@ -29,7 +29,7 @@ class Grado(models.Model):
 		return self.grado
 
 class Usuario(AbstractBaseUser):
-	alias = models.CharField(max_length=20,unique=True)
+	alias = models.CharField(max_length=20,unique=True,verbose_name="Usuario")
 
 	is_admin = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=True)
@@ -60,3 +60,8 @@ class Usuario(AbstractBaseUser):
 class GradoUsuario(models.Model):
 	grado = models.ForeignKey(Grado)
 	usuario = models.OneToOneField(Usuario)
+
+	class Meta:
+		ordering = ['grado']
+	#def __str__(self):
+		#self.usuario

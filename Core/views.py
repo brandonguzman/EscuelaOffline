@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.contrib.auth import login, authenticate
 from GestionUser.forms import UsuarioForm
-from GestionUser.models import Grado, Usuario
+from GestionUser.models import Grado, Usuario, GradoUsuario
 
 class NewUserBase(FormView):
 	"""
@@ -226,4 +226,23 @@ class Punteos(TemplateView):
 		context["grados"] = Grado.objects.all()
 		context["categorias"] = CategoriaJuego.objects.all()
 		context["juegos"] = Juego.objects.all()
+		grados = Grado.objects.all()
+		print(grados)
+		usuarios = GradoUsuario.objects.all() #obtengo todos los usuarios
+		#print(usuarios)
+		punteo_user = []
+		for u in usuarios:
+			up = UP(u.usuario, Puntuacion.objects.filter(user=u.usuario), u.grado )
+			punteo_user.append( up )
+		context["punteo_user"] = punteo_user
 		return context
+
+class UP():
+	usuario = None
+	punteos = None
+	grado   = None
+
+	def __init__(self, usuario, punteos, grado):
+		self.usuario = usuario
+		self.punteos = punteos
+		self.grado = grado

@@ -69,26 +69,244 @@
 		.helptext{
 			display: none;
 		}
+		.padre{
+			display: table;
+			width: 90%;
+			margin: 0 auto;
+		}
+		.hijo{
+			display: table-cell;
+			text-align: center;
+		}
+		.hijo select{
+			width: 200px;
+		}
+		.hijo h3{
+			color: white;
+			padding: 15px 0px;
+		}
+		.filtros{
+			padding-top: 10px;
+		}
+		table{
+		  border-collapse: collapse;
+		  display: inline;
+		  width: 600px;
+		}
+		th,td{
+		  border: 1px solid #888;
+		  padding: 5px;
+		  text-align: left;
+		  vertical-align: top;
+		}
+		thead{
+		  background-color: #363655;
+		  box-shadow: inset 0px 0px 5px white;
+		  color: white;
+		}
+		thead tr th{
+		  text-align: center;
+		}
+		tbody tr:nth-child(2n){
+		  background-color: rgba(255,255,255,0.3);
+		}
+		tbody tr td:last-child(){
+		  text-align: right;
+		}
+		tr{
+		}
+		#tabla{
+			margin: 0 auto;
+			text-align: center;
+		}
+		#over{
+			overflow: auto;
+			height: 370px;
+			display: inline-block;
+		}
+		#tabla1{
+			display: inline-block;
+		}
 	</style>
 {%endblock%}
 
 {%block body%}
 <section id="sectionPrincipal">
 	<h2><div id="nombreJuego">Puntuaciones</div></h2>
-	<select>
-		{%for g in grados%}
-			<option>{{g}}</option>
-		{%endfor%}
-	</select>
-	<select>
-		{%for c in categorias%}
-			<option>{{c}}</option>
-		{%endfor%}
-	</select>
-	<select>
-		{%for j in juegos%}
-			<option>{{j}}</option>
-		{%endfor%}
-	</select>
+	<div class="filtros">
+		<h2 style="padding: 0; display: none;">Filtros</h2>
+	</div>
+	<div class="padre">
+		<div class="hijo">
+			<h3>Grados</h3>
+			<select onchange="toogleGrados(this)" id="grados">
+				<option value="-1">Todos</option>
+				{%for g in grados%}
+					<option value="{{g.id}}">{{g}}</option>
+				{%endfor%}
+			</select>
+		</div>
+		<div class="hijo">
+			<h3>Categorías</h3>
+			<select id="cat" onchange="ocultarCategoria(this)">
+				<option value="-1">Todos</option>
+				{%for c in categorias%}
+					<option value="{{c.id}}">{{c}}</option>
+				{%endfor%}
+			</select>
+		</div>
+		<div class="hijo">
+			<h3>Juegos</h3>
+			<select id="juegos" onchange="toogleJuegos(this)">
+				<option value="-1">Todos</option>
+				{%for j in juegos%}
+					<option name="{{j.categoriaJuego}}" value="{{j.id}}" id="{{j.id}}">{{j}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div id="tabla">
+		<table id="tabla1">
+			<thead style="background:#565675;display: inline-block;">
+				<td style="width:200px;">Juego</td>
+				<td style="width:100px;">Nivel</td>
+				<td style="width:100px;">Punteo Min</td>
+				<td style="width:100px;">Punteo Max</td>
+			</thead>
+		</table>
+		<div style="display: block;">
+		<div id="over">
+			<table>
+			{%for user in punteo_user%}
+				<thead onclick="tooglePunteo(this)" class="{{user.grado}}" style="width:484px;">
+					<td style="text-align:center;" colspan='4'>{{user.usuario}} - ({{user.grado}})</td>
+				</thead>
+				<tbody id="{{user.usuario}}" class="{{user.grado}}">
+				{%for p in user.punteos%}
+					<tr name="{{p.user}}" class="{{p.juego}} {{p.juego.categoriaJuego}} todosJ {{p.juego.id}}">
+						<td style="width:200px;">{{p.juego}}</td>
+						<td style="width:100px;">{{p.cod_nivel}}</td>
+						<td style="width:100px;">{{p.punteoMin}}</td>
+						<td style="width:100px;">{{p.punteoMax}}</td>
+					</tr>
+				{%endfor%}
+				
+					</tbody>
+			{%endfor%}
+			</table>
+		</div>
+		</div>
+	</div>
 </section>
+<script src="/static/js/GLOBAL/jquery-2.2.3.min.js"></script>
+<script>
+	var mates = document.getElementsByName("Matemáticas");
+	var ingles = document.getElementsByName("Idioma Inglés");
+	var logica = document.getElementsByName("Lógica");
+	var juegos = document.getElementById("juegos");
+	var t_idioma = $('.Idioma');
+	var t_mates = $('.Matemáticas');
+	var t_logica = $('.Lógica');
+	function ocultarCategoria(e){
+		var v = e.value;
+		if( v==1 ){ //matemáticas
+			mostrarCategoria(true,false,false);
+			t_idioma.hide();
+			t_logica.hide();
+			toogleGrados(document.getElementById('grados'));
+			t_mates.show();
+		}else if( v==2 ){ //idioma inglés
+			mostrarCategoria(false,true,false);
+			t_mates.hide();
+			t_logica.hide();
+			toogleGrados(document.getElementById('grados'));
+			t_idioma.show();
+		}else if( v==3 ){ //lógica
+			mostrarCategoria(false,false,true);
+			t_idioma.hide();
+			t_mates.hide();
+			toogleGrados(document.getElementById('grados'));
+			t_logica.show();
+		}else{
+			$('.todosJ').show();
+			mostrarCategoria(true,true,true);
+		}
+	}
+	function mostrarCategoria(c_mates, c_ingles, c_logica){
+		for(i=0; i<mates.length; i++){
+			if( c_mates )
+				mates[i].style.display = 'block';
+			else
+				mates[i].style.display = 'none';
+		}
+		for(i=0; i<ingles.length; i++){
+			if( c_ingles )
+				ingles[i].style.display = 'block';
+			else
+				ingles[i].style.display = 'none';
+		}
+		for(i=0; i<logica.length; i++){
+			if( c_logica )
+				logica[i].style.display = 'block';
+			else
+				logica[i].style.display = 'none';
+		}
+		juegos.value = -1;
+	}
+	function tooglePunteo(e){
+		var v = document.getElementsByName(e.getAttribute('id'));
+		//alert(e.style.display);
+		for(var i=0; i<v.length; i++){
+			//alert(v[i].style.display);
+			if( v[i].style.display == '' )
+				v[i].style.display = 'none';
+			else
+				v[i].style.display = '';
+		}
+	}
+	function toogleGrados(e){
+		if( e.value == 1 ){
+			$(".Primaria").hide();
+			$(".Primero").show();
+		}else if( e.value == 2 ){
+			$(".Primaria").hide();
+			$(".Segundo").show();
+		}else if( e.value == 3 ){
+			$(".Primaria").hide();
+			$(".Tercero").show();
+		}else if( e.value == 4 ){
+			$(".Primaria").hide();
+			$(".Cuarto").show();
+		}else if( e.value == 5 ){
+			$(".Primaria").hide();
+			$(".Quinto").show();
+		}else if( e.value == 6 ){
+			$(".Primaria").hide();
+			$(".Sexto").show();
+		}else{
+			$(".Primaria").show();
+		}
+	}
+	var todosJ = $('.todosJ');
+	function toogleJuegos(e){
+		if( e.value == -1 ){
+			document.getElementById("cat").value = -1;
+			todosJ.show();
+		}else{
+			var nombre = document.getElementById( e.value+"" ).getAttribute('name');
+			var idd = document.getElementById( e.value+"" ).getAttribute('id');
+			if( nombre == 'Lógica' ){
+				document.getElementById("cat").value = 3;
+			}
+			else if( nombre == 'Idioma Inglés' ){
+				document.getElementById("cat").value = 2;
+			}
+			else if( nombre == 'Matemáticas' ){
+				document.getElementById("cat").value = 1;
+			}
+			todosJ.hide();
+			$('.'+idd).show();
+		}
+	}
+</script>
 {%endblock%}
