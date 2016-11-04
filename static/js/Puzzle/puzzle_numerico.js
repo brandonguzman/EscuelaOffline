@@ -106,7 +106,7 @@ var creaNivel = function(){
 		//randVector(cordenadasIIxII);
 		//Crea las piezas del rompecabezas conforme el numero de cordenadas del nivel
 		for(var i = 1; i < cordenadasIIxII.length ; i++){
-			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 255, rColor: 64, bColor: 64});
+			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 12, rColor: 194, bColor: 172});
 		};
 		posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: cordenadasIIxII.length, gColor: 1, rColor: 26, bColor: 31});
 
@@ -124,7 +124,7 @@ var creaNivel = function(){
 		randVector(cordenadasIIIxIII);
 		//Crea las piezas del rompecabezas conforme el numero de cordenadas del nivel
 		for(var i = 1; i < cordenadasIIIxIII.length ; i++){
-			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 243, rColor: 216, bColor: 81});
+			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 178, rColor: 7, bColor: 162});
 		};
 		posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: cordenadasIIIxIII.length, gColor: 1, rColor: 26, bColor: 31});
 
