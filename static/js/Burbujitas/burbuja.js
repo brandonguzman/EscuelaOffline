@@ -249,8 +249,10 @@ if (bubble.movX <50){
 if (bubble.movX>550){
 	movimiento_P -=nivel;
 } 
+
 bubble.movY= bubble.movY + Gravedad_P;
 bubble.movX = bubble.movX + movimiento_P;
+
 };
 
 
@@ -279,7 +281,6 @@ if (bubble.movX>550){
 bubble.movY= bubble.movY + Gravedad_A;
 bubble.movX = bubble.movX + movimiento_A;
 };
-
 
 
 draw = function(){
