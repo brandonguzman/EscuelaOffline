@@ -295,7 +295,7 @@ carro.prototype.dibujar = function() {
     // genera la pregunta hasta que aparecen las fichas.
     if (ficha1.fichaX <= 650 & ficha2.fichaX <= 650 & ficha2.fichaX <= 650) {
 
-        text("Resulve la operación: "+genera.pregunta+" "+"=",20,100); 
+        text("Resuelve la operación: "+genera.pregunta+" "+"=",20,100); 
     }
 
    
