@@ -6,6 +6,7 @@ var nivel; //variable que controla los niveles del juego
 var juega = true;
 var posiciones = [];
 var crono = null;
+var tiempo;
 
 var jugar;
 var blockGame = "";
@@ -30,10 +31,20 @@ var cordenadasIIIIxIIII	= [
 	{x: 0, y: 375}, {x: 125, y: 375}, {x: 250, y: 375}, {x: 375, y: 375},
 ];
 
+void setup(){
+	BarraMovs = new PImage();
+	BarraMovs = loadImage("/static/img/Puzzle/barraMovs.png");
+
+	BarraPunteo = new PImage();
+	BarraPunteo = loadImage("/static/img/Puzzle/barraPunteo.png");
+};
+
 // funcion para iniciar el juego seleccionando un nivel
 eligio = function () {
+		tiempo = null;
         posiciones = [];
         juega = true;
+        jugar = true;
         blockGame = "";
         textNewPartida = "";
         movimiento = 0;
@@ -74,7 +85,11 @@ var drawPieza = function(atributo){
 	fill(gColor, rColor, bColor); //6, 87, 71
 	rect(x, y, ancho, alto);
 	
-	fill(1, 26, 31);
+	RcLetra = 1;
+	GcLetra = 26;
+	BcLetra = 31;
+
+	fill(RcLetra, GcLetra, BcLetra);
 	textSize(80);
 	text(numero, x + 15, y + 100);
 };
@@ -91,7 +106,7 @@ var creaNivel = function(){
 		//randVector(cordenadasIIxII);
 		//Crea las piezas del rompecabezas conforme el numero de cordenadas del nivel
 		for(var i = 1; i < cordenadasIIxII.length ; i++){
-			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 6, rColor: 87, bColor: 71});
+			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 255, rColor: 64, bColor: 64});
 		};
 		posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: cordenadasIIxII.length, gColor: 1, rColor: 26, bColor: 31});
 
@@ -109,7 +124,7 @@ var creaNivel = function(){
 		randVector(cordenadasIIIxIII);
 		//Crea las piezas del rompecabezas conforme el numero de cordenadas del nivel
 		for(var i = 1; i < cordenadasIIIxIII.length ; i++){
-			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 6, rColor: 87, bColor: 71});
+			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 243, rColor: 216, bColor: 81});
 		};
 		posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: cordenadasIIIxIII.length, gColor: 1, rColor: 26, bColor: 31});
 
@@ -127,7 +142,7 @@ var creaNivel = function(){
 		randVector(cordenadasIIIIxIIII);
 		//Crea las piezas del rompecabezas conforme el numero de cordenadas del nivel
 		for(var i = 1; i < cordenadasIIIIxIIII.length ; i++){
-			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 6, rColor: 87, bColor: 71});
+			posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: i, gColor: 52, rColor: 191, bColor: 226});
 		};
 		posiciones.push({x: 0, y: 0, ancho: tPieza, alto: tPieza, numero: cordenadasIIIIxIIII.length, gColor: 1, rColor: 26, bColor: 31});
 
@@ -140,6 +155,7 @@ var creaNivel = function(){
 
 }
 
+
 //Dibuja las posiciones de los objetos en el lienzo
 draw = function(){
 	if(jugar){
@@ -148,6 +164,8 @@ draw = function(){
 
 		//dibuja numero de movimientos
 		clickDibuja();
+
+		image(BarraMovs, 4, 4);
 
 		textSize(12);
 		fill(255,255,255);
@@ -167,12 +185,8 @@ draw = function(){
 				&& (posiciones[2].x == 0) 	&& (posiciones[2].y == 250)
 				&& (posiciones[3].x == 250) && (posiciones[3].y == 250)) {
 					blockGame = "¡Has ganado, inicia una nueva partida."; 
-					juega = false;
-					//posiciones[0].x = 1;
-					crono.detener();
-					crono.kill();
-					var tiempo = document.getElementById("crono").innerText;
-					guardarPunteo(1000,tiempo,"nivel",null);	
+
+					killGame();	
 				};
 			};
 
@@ -194,12 +208,8 @@ draw = function(){
 				&& (posiciones[7].x == 167) && (posiciones[7].y == 334)
 				&& (posiciones[8].x == 334) && (posiciones[8].y == 334)) {
 					blockGame = "¡Has ganado, inicia una nueva partida.";
-					juega = false;
-					//posiciones[0].x = 1;
-					crono.detener();
-					crono.kill();
-					var tiempo = document.getElementById("crono").innerText;
-					guardarPunteo(1000,tiempo,"nivel",null); 	
+					
+					killGame(); 	
 				};
 		
 			};								
@@ -229,17 +239,13 @@ draw = function(){
 				&& (posiciones[14].x == 250) && (posiciones[14].y == 375)
 				&& (posiciones[15].x == 375) && (posiciones[15].y == 375)) {
 					blockGame = "¡Has ganado, inicia una nueva partida.";
-					juega = false;
-					posiciones[0].x = 1;
-					crono.iniciar();
-					crono.kill();
-					var tiempo = document.getElementById("crono").innerText;
-					guardarPunteo(1000,tiempo,"nivel",null); 	
+					
+					killGame();	
 				};
 		
 			};
 		};
-	}
+	};
 };
 
 /*Activa el evento mouseClicked, se delimitan las posiciones x y y de cada una de las
@@ -405,3 +411,19 @@ var mobPieza = function(xMin, yMin, tXY, posiciones){
 	//alert("Arriba: " + posArriba + ", Abajo: " + posAbajo + ", Izquierda: " + posIzquierda + ", Derecha: " + posDerecha + ", Actual: " + posActual);   	
 }
 
+var killGame = function(){
+	juega = false;
+	jugar = false;
+	//posiciones[0].x = 1;
+	crono.detener();
+	crono.kill();
+
+	tiempo = document.getElementById("crono").innerText;
+	guardarPunteo(5000, tiempo,"nivel",null);
+
+	image(BarraPunteo, 4, 180 , 494, 150);
+	textSize(28);
+	fill(33, 97, 140);
+	text("TÚ TIEMPO FUE DE: " + tiempo, 60, 270);
+	
+}
