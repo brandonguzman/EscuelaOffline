@@ -21,7 +21,7 @@ var nivel1Vector = [
 	{ruta: loadImage("/static/img/Trivia/lv1/DOG.png"),   nombreObjeto: "DOG",   palabra: JSON.stringify([{t: "D"}, {t: "O"}, {t: "G"}])},
 	{ruta: loadImage("/static/img/Trivia/lv1/CAR.png"),   nombreObjeto: "CAR",   palabra: JSON.stringify([{t: "C"}, {t: "A"}, {t: "R"}])},
 	{ruta: loadImage("/static/img/Trivia/lv1/PEN.png"),   nombreObjeto: "PEN",   palabra: JSON.stringify([{t: "P"}, {t: "E"}, {t: "N"}])},
-	{ruta: loadImage("/static/img/Trivia/lv1/home.png"),  nombreObjeto: "HOME",  palabra: JSON.stringify([{t: "H"}, {t: "O"}, {t: "M"}, {t: "E"}])},
+	{ruta: loadImage("/static/img/Trivia/lv1/home.png"),  nombreObjeto: "HOUSE", palabra: JSON.stringify([{t: "H"}, {t: "O"}, {t: "U"}, {t: "S"}, {t: "E"}])},
 	{ruta: loadImage("/static/img/Trivia/lv1/CLOCK.png"), nombreObjeto: "CLOCK", palabra: JSON.stringify([{t: "C"}, {t: "L"}, {t: "O"}, {t: "C"}, {t: "K"}])},
 	{ruta: loadImage("/static/img/Trivia/lv1/RULER.png"), nombreObjeto: "RULER", palabra: JSON.stringify([{t: "R"}, {t: "U"}, {t: "L"}, {t: "E"}, {t: "R"}])},
 	{ruta: loadImage("/static/img/Trivia/lv1/CHAIR.png"), nombreObjeto: "CHAIR", palabra: JSON.stringify([{t: "C"}, {t: "H"}, {t: "A"}, {t: "I"}, {t: "R"}])},
