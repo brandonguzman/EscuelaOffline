@@ -477,7 +477,7 @@
 			textSize(18);
 			PFont fontA = loadFont("Arial");
 	    	textFont(fontA,18);
-			text("Seleccione la Respuesta Correcta de:" + mate.pregunta,200,15);
+			text("Lanza la piedra a la Respuesta Correcta de: " + mate.pregunta,160,15);
 			PFont fontA = loadFont("Arial");
 	    	textFont(fontA,18);
 			text("Punteo"+" "+O_punteo.punteo, 6,15);
