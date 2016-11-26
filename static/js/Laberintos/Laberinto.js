@@ -103,6 +103,7 @@ function crearLaberintos(){
 		var al = aleat(0,labs3.length-1);
 		f = labs3[al];
 	}
+	//f = labs2[2];
 	f(laberinto);
 	//printArray(v);
 	//console.log(v.length);
@@ -112,26 +113,26 @@ function crearLaberintos(){
 	//printArray(laberinto);
 };
 
-// function dibujarLaberinto(){
-// 	stroke(133); fill(200);
-// 	tCasilla = tamCasilla;
-// 	for(var i=0; i<laberinto.length; i++){
-// 		for(var j=0; j<laberinto[i].length; j++){
-// 			if( puntoInicial.x == i & puntoInicial.y == j )
-// 			 	fill(0);
-// 			if( puntoFinal.x == i & puntoFinal.y == j )
-// 			 	fill(0,0,255);
-// 			if( laberinto[i][j] != -1 ){
-// 				fill(250);
-// 				image(ladrillo,j*tCasilla,i*tCasilla,tCasilla,tCasilla);
-// 			}
-// 			//rect(j*tCasilla,i*tCasilla,tCasilla,tCasilla);
-// 			//fill(0);
-// 			//text(laberinto[i][j],j*tCasilla+5,i*tCasilla+15);
-// 			//fill(200);
-// 		}
-// 	}
-// };
+function dibujarLaberinto(){
+	stroke(133); fill(200);
+	tCasilla = tamCasilla;
+	for(var i=0; i<laberinto.length; i++){
+		for(var j=0; j<laberinto[i].length; j++){
+			if( puntoInicial.x == i & puntoInicial.y == j )
+			 	fill(0);
+			if( puntoFinal.x == i & puntoFinal.y == j )
+			 	fill(0,0,255);
+			if( laberinto[i][j] != -1 ){
+				fill(250);
+				//image(ladrillo,j*tCasilla,i*tCasilla,tCasilla,tCasilla);
+			}
+			//rect(j*tCasilla,i*tCasilla,tCasilla,tCasilla);
+			fill(0);
+			text(laberinto[i][j],j*tCasilla+5,i*tCasilla+15);
+			//fill(200);
+		}
+	}
+};
 
 var caja = null;
 //se usan para mover el circulo amarillo
@@ -159,7 +160,9 @@ function dibujarLaberinto(){
 	if( YF > laberinto[0].length ) YF = laberinto[0].length;
 	//console.log("yini y xini: "+yini,","+xini+" - yFin y xFin: "+yfin,","+xfin);
 	for(var i=XI; i<XF; i++){
+	//for(var i=0; i<laberinto.length; i++){
 		for(var j=YI; j<YF; j++){
+		//for(var j=0; j<laberinto[i].length; j++){
 			//stroke(255,151,40); fill(255,151,40);
 			stroke(255); fill(0,0,250);
 			caja = laberinto[i][j];
@@ -177,6 +180,8 @@ function dibujarLaberinto(){
 			if( caja.der ){
 				rect(j*tamCasilla+tCasilla,i*tamCasilla,2,tCasilla);
 			}
+			//fill(255);
+			//textSize(8);
 			//text(i+","+j,j*tCasilla+5,i*tCasilla+15);
 		}
 	}
@@ -295,7 +300,8 @@ mouseClick = function(){
 
 var todas = [];
 
-mouseC = function(){
+//funcion para editar los laberintos
+mouseClicked = function(){
 	var Y = parseInt(mouseY/tamCasilla);
 	var X = parseInt(mouseX/tamCasilla);
 	var y = mouseY-Y*tamCasilla;
@@ -314,22 +320,6 @@ mouseC = function(){
 		izq = true;
 	if( x>=unCuarto*3 & x<= tamCasilla )
 		der = true;
-	// if( arr )
-	// 	arr = "true";
-	// else
-	// 	arr = "false";
-	// if( aba )
-	// 	aba = "true";
-	// else
-	// 	aba = "false";
-	// if( izq )
-	// 	izq = "true";
-	// else
-	// 	izq = "false";
-	// if( der )
-	// 	der = "true";
-	// else
-	// 	der = "false";
 	var parraf = "abrirCamino("+Y+","+X+","+"laberinto,"+arr+","+aba+","+izq+","+der+");";
 	todas.push( parraf );
 	abrirCamino(Y,X,laberinto,arr,aba,izq,der);
@@ -339,9 +329,10 @@ mouseC = function(){
 mostrarMovimientosAg = function(){
 	var movvs = document.getElementById('movs');
 	for(i=0; i<todas.length; i++){
-		var p = document.createElement("p");
-		p.innerText = todas[i];
-		movvs.appendChild( p );
+		var texto = document.createTextNode(todas[i]);
+		var br = document.createElement("br");
+		movvs.appendChild( texto );
+		movvs.appendChild( br );
 	}
 };
 
