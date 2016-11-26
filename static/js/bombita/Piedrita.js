@@ -33,7 +33,8 @@
 	var lanzamiento;
 	var end;
 	PImage end2 = loadImage("/static/img/bombita/fin.jpg");
-
+	PImage Malo = loadImage("/static/img/bombita/Malo.png");
+	
 	function aleat(a,b){
 		return Math.round( Math.random() * (b-a) ) + a;
 	}
@@ -129,6 +130,7 @@
 		hon = new creaimagen(loadImage("/static/img/bombita/HOND.png"),canonX,canonY,70,70);
 		desierto = new creaimagen(loadImage("/static/img/bombita/Desert.jpg"),0,0,600,400);
 		end = new creaimagen(loadImage("/static/img/bombita/fin.jpg"),0,0,600,400);
+
 	};
 		O_punteo = new E_punteo();
 	
@@ -199,6 +201,7 @@
 	    		 	  	lanzar= -1;
     	}
     }
+    
     validachoque = function(){
 
     	if(img.imgX>pelota.movX-20 & img.imgX<pelota.movX+20 & img.imgY>pelota.movY-10 & img.imgY<pelota.movY+10){
@@ -208,7 +211,6 @@
     				if(resultado==true){
 	    				sonido = document.getElementById('explosion');
 		    			sonido.play();
-		    			
 		    			creaobjeto();
 		    			O_punteo.punteo = O_punteo.punteo +5;
 		    			auxcont=true;
@@ -221,6 +223,7 @@
 	    	}	
     	    		
     		else if(mate.r!=pelota.texto){
+    				
     			error=true;
     				if(error==true){
 	    		 	  sonido = document.getElementById('error');
@@ -228,7 +231,9 @@
 	    		 	  O_punteo.punteo = O_punteo.punteo - 2;
 	    		 	  if(O_punteo.punteo < 0){
 		    				O_punteo.punteo=0;
+
 		    			}
+		    			
 		    			pelota.altura =0;
 		    			pelota.ancho = 0;
 		    			pelota.texto='';
@@ -241,9 +246,11 @@
 	    		 	  	cuadrado.y=lineaY;
 	    		 	  	pelota.movX =-10;
 		    			pelota.movY=-10;
-	    		 	  	lanzar=-1;
+	    		 	  	
+	    		  	  	lanzar=-1;
 	    		 	  	error=false;
 		    		}  
+    		 //image(Malo,150,90,50,50);
     		 }
     		 
     	}
@@ -268,14 +275,18 @@
 	    	}	
     	    		
     		else if(mate.r!=objeto.texto){
+    				
     			error=true;
+
     				if(error==true){
 	    		 	  sonido = document.getElementById('error');
 		    			sonido.play();
+		    			
 	    		 	  O_punteo.punteo = O_punteo.punteo - 2;
 	    		 	  if(O_punteo.punteo < 0){
 		    				O_punteo.punteo=0;
 		    			}
+		    			
 		    			objeto.altura =0;
 		    			objeto.ancho = 0;
 		    			objeto.texto='';
@@ -288,9 +299,12 @@
 	    		 	  	cuadrado.y=lineaY;
 	    		 	  	objeto.movX = -10;
 		    			objeto.movY = -10;
+	    		 	  	
 	    		 	  	lanzar=-1;
 	    		 	  	error=false;
+		    			
 		    		}  
+    		  //image(Malo,300,90,50,50);
     		 }
     		 
     	}
@@ -314,14 +328,17 @@
 	    	}	
     	    		
     		else if(mate.r!=burbuja.texto){
+    			
     			error=true;
     				if(error==true){
 	    		 	  sonido = document.getElementById('error');
 		    			sonido.play();
+		    			
 	    		 	  	O_punteo.punteo = O_punteo.punteo - 2;
 	    		 	  	if(O_punteo.punteo < 0){
 		    				O_punteo.punteo=0;
 		    			}
+
 		    			burbuja.altura =0;
 		    			burbuja.ancho = 0;
 		    			burbuja.texto='';
@@ -334,14 +351,28 @@
 	    		 	  	cuadrado.y=lineaY;
 	    		 	  	burbuja.movX = -10;
 		    			burbuja.movY = -10;
+	    		 	  	
 	    		 	  	lanzar=-1;
 	    		 	  	error=false;
+	    		 	  	
 		    		}  
+    		// image(Malo,470,90,50,50);
     		 }
     		 
     	}
     };
+    imagenes = function(){
+    	if(pelota.movX==-10){
+    		image(Malo,130,80,50,50);
+    	} 
+    	if(burbuja.movX==-10){
+    		image(Malo,450,80,50,50);
+    	}
+    	if(objeto.movX==-10){
+    		image(Malo,280,80,50,50);
+    	}
 
+    }
     fin = function(){
     	if(auxcont==true){
     		if(contador==10){
@@ -440,12 +471,13 @@
 			cuadrado.dibuja_cuadrado();
 			lanzar_bala();
 			validachoque();
+			imagenes();
 			choquepared();
 			fill(0);
 			textSize(18);
 			PFont fontA = loadFont("Arial");
 	    	textFont(fontA,18);
-			text("Seleccione la Respuesta Correcta de:" + mate.pregunta,200,15);
+			text("Lanza la piedra a la Respuesta Correcta de: " + mate.pregunta,160,15);
 			PFont fontA = loadFont("Arial");
 	    	textFont(fontA,18);
 			text("Punteo"+" "+O_punteo.punteo, 6,15);

@@ -1,5 +1,5 @@
 size(600,400);
-background(151, 244, 247);
+
 
 var numero1 = Math.floor((Math.random() *4));
 var numero2 = Math.floor((Math.random() *4));
@@ -27,17 +27,20 @@ operando[0]='+';
 operando[1]='-';
 operando[2]='*';
 var cintento=0;
+var end2;
+PImage Fin = loadImage("/static/img/Burbujitas/fin.jpg");
 
 function aleat(a,b){
   return Math.round( Math.random() * (b-a) ) + a;
 }
 
-figura = function(movX, movY, altura, ancho, texto){
+figura = function(movX, movY, altura, ancho, texto,imagen){
 this.altura = altura;
 this.ancho = ancho;
 this.movY = movY;
 this.movX = movX;
 this.texto = texto;
+this.imagen = imagen;
 };
 
 function TriviaMate(){
@@ -103,16 +106,17 @@ creaobjeto = function(){
 var asignaoperando = aleat(0,operando.length - 1);
  mate = new TriviaMate();
  mate.init(operando[asignaoperando],nivel);
- objeto = new figura(310,40,100, 100, mate.op1);
- pelota = new figura(150, 40,100, 100, mate.op2); 
- burbuja = new figura(450, 40, 100, 100, mate.op3);
+ objeto = new figura(310,10,80, 80, mate.op1,loadImage("/static/img/Burbujitas/burbuja.png"));
+ pelota = new figura(150,10,80, 80, mate.op2,loadImage("/static/img/Burbujitas/burbuja.png")); 
+ burbuja = new figura(450, 10,80, 80, mate.op3,loadImage("/static/img/Burbujitas/burbuja.png"));
+ end2 = new figura(0, 0,600,400," ",loadImage("/static/img/Burbujitas/bubu.jpg"));
  
 };
 O_punteo = new E_punteo();
 
 figura.prototype.comprobarClick = function(x,y){
 		
-	if( x > this.movX-40 & x < this.movX+40 & y>this.movY-40 & y< this.movY+40){
+	if( x > this.movX & x < this.movX+60 & y>this.movY & y< this.movY+70){
 		
 		    if(mate.r==this.texto){
 		    			comprueba_P = true;
@@ -131,8 +135,8 @@ figura.prototype.comprobarClick = function(x,y){
  						
  						sonido = document.getElementById('error');
 		    			sonido.play();
- 							this.altura= 0;
- 							this.ancho = 0;
+ 							
+ 							this.imagen= -1;
  							this.texto ='';
  							 }
    	      }	
@@ -153,6 +157,7 @@ seleccion = function(){
    		
    }
    if(nivel ==2){
+   	nivel = nivel - 0.5;
    	jugar = true;
    	creaobjeto();
    	  	O_punteo.punteo= 0;
@@ -161,6 +166,7 @@ seleccion = function(){
          	
    }
    if(nivel == 3){
+   	nivel = nivel-1.5;
    	jugar = true;
    	creaobjeto();
  	O_punteo.punteo= 0;
@@ -190,35 +196,36 @@ seleccion = function(){
 
 figura.prototype.dibuja = function() {
      
-	noStroke();
-	fill(168, 201, 250);	
-	ellipse (this.movX,this.movY, this.altura, this.ancho);
+	//noStroke();
+	//fill(168, 201, 250);	
+	image(this.imagen,this.movX,this.movY,this.altura,this.ancho);
+	//ellipse (this.movX,this.movY, this.altura, this.ancho);
 	fill(0);
 	textSize(25);
-	text(this.texto, this.movX-20, this.movY);
+	text(this.texto, this.movX+17, this.movY+40);
 
     };
 
 
 var mover_D = function(bubble,nivel){
  
- if( bubble.movY >350){
+ if( bubble.movY >340){
 	   
 	   Gravedad_O -=nivel;
 
-} else if( bubble.movY < 50){
+} else if( bubble.movY <11){
 	
 	Gravedad_O =nivel;
 	
 }   
-if ( bubble.movY >350){
+if ( bubble.movY >340){
 	movimiento_O +=nivel;
 	
-} else if(bubble.movX<50){
+} else if(bubble.movX<10){
 	movimiento_O = nivel;
 	
 }
-if (bubble.movX >550){
+if (bubble.movX >530){
 	movimiento_O -=nivel;
 }
 bubble.movY= bubble.movY + Gravedad_O;
@@ -229,87 +236,104 @@ bubble.movX = bubble.movX+ movimiento_O;
 var mover_I = function(bubble,nivel){
       
 
-	if( bubble.movY >350){
+	if( bubble.movY >340){
 	Gravedad_P -=nivel;
 	
-}else if( bubble.movY < 50){
+}else if( bubble.movY <11){
 	Gravedad_P =nivel;
 	
 }
- if ( bubble.movY >350){
+ if ( bubble.movY >340){
 	movimiento_P -=nivel;
 	
-} else if(bubble.movX<50){
+} else if(bubble.movX<11){
 	movimiento_P = nivel;
 	
 }
-if (bubble.movX <50){
+if (bubble.movX <11){
 	movimiento_P +=nivel;
 }  	
-if (bubble.movX>550){
+if (bubble.movX>530){
 	movimiento_P -=nivel;
 } 
+
 bubble.movY= bubble.movY + Gravedad_P;
 bubble.movX = bubble.movX + movimiento_P;
+
 };
 
 
 var mover_A = function(bubble,nivel){
 
-	if( bubble.movY <50){
+	if( bubble.movY <11){
 	Gravedad_A = nivel;
 	
-}else if( bubble.movY >350){
+}else if( bubble.movY >340){
 	Gravedad_A -=nivel;
 	
 }
- if ( bubble.movY <50){
+ if ( bubble.movY <11){
 	movimiento_A +=nivel-0.3;
 	
-} else if(bubble.movX<50){
+} else if(bubble.movX<11){
 	movimiento_A = nivel;
 	
 }
-if (bubble.movX <50){
+if (bubble.movX <11){
 	movimiento_A =nivel;
 }  	
-if (bubble.movX>550){
+if (bubble.movX>540){
 	movimiento_A -=nivel;
 }
 bubble.movY= bubble.movY + Gravedad_A;
 bubble.movX = bubble.movX + movimiento_A;
 };
 
-
-
+finalizar = function(){
+    		if(cintento==10){	
+    			
+	    		image(Fin,0,0,600,400);
+	    		PFont fontA = loadFont("Jokerman");
+	    		textFont(fontA,33);
+	    		text("JUEGO", 400,85);
+	    		text("TERMINADO", 60,200);
+	    		PFont fontA = loadFont("Jokerman");
+	    		textFont(fontA,25);
+	    		text("SU PUNTEO FUE:   "+O_punteo.punteo +"  Puntos", 130,320);
+	    		guardarPunteo(3000,O_punteo.punteo,"nivel",null);
+				jugar=false;
+			}	
+}    			
 draw = function(){
  if(jugar){
-	    background(151, 244, 247);
- 	
+	    //background(151, 244, 247);
+ 	end2.dibuja();
  	objeto.dibuja();
 	burbuja.dibuja();
 	pelota.dibuja();
 	mover_A(pelota,nivel - 0.3);
 	mover_I(objeto,nivel - 0.3);
 	mover_D(burbuja,nivel - 0.3);
-
-	if(cintento==10){
-		alert("Terminaste");
+	
+	/*if(cintento==3){
+		Fin.dibuja();
 		guardarPunteo(1000,O_punteo.punteo,"nivel",null);
+
 		jugar = false;
-	}
+	}*/
 	fill(0);
 	textSize(18);
 	text("Seleccione la Respuesta Correcta de :" + mate.pregunta,200,15);
 	textSize(18);
 	text("Punteo"+" "+O_punteo.punteo, 6,15);
-	
-					 	
+	finalizar();
+			 	
 	}
 
 };
 		
 mouseClicked = function(){
+	
 	objeto.comprobarClick(mouseX, mouseY);
 	pelota.comprobarClick(mouseX, mouseY);
 	burbuja.comprobarClick(mouseX, mouseY);
